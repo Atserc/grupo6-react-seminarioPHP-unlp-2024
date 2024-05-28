@@ -4,7 +4,7 @@ function PaginaError() {
     return (
         <div>
             <h1>404 Error</h1>
-            <p>Sorry, the page you are looking for does not exist.</p>
+            <p>La url no pertenece a ninguna pagina disponible.</p>
         </div>
     );
 };

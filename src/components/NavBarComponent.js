@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 function NavBarComponent(){
     return (
         <nav>
-            <ul>
-                <li>navbar</li>
+            <ul className='flex gap-3'>
                 <li>
-                    <Link to="/propiedades">Propiedades</Link>
+                    <Link to="/">Propiedades</Link>
                 </li>
                 <li>
-                    <Link to="/inquilinos">Inquilinos</Link>
+                    <Link to="/tipoPropiedades">tipo Propiedades</Link>
                 </li>
                 <li>
                     <Link to="/reservas">Reservas</Link>

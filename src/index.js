@@ -2,21 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/styles/index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PaginaError from './pages/PaginaError';
-import LandingPage from './pages/LandingPage';
+import {BrowserRouter} from 'react-router-dom';
+import HeaderComponent from './components/HeaderComponent';
+import MainComponent from './components/MainComponent';
+import FooterComponent from './components/FooterComponent';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/inquilinos" element={<LandingPage />} />
-        <Route path="/propiedades" element={<LandingPage />} />
-        <Route path="/reservas" element={<LandingPage />} />
-        <Route path="*" element={<PaginaError />} />
-      </Routes>
+      <HeaderComponent />
+      <MainComponent />
+      <FooterComponent />
     </BrowserRouter>
   </React.StrictMode>
 );
@@ -24,3 +22,8 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+/* opcional:
+  -listado new, edit y eliminar de localidad.
+  -listado, detail, new, edit y eliminar de inquilinos.
+*/

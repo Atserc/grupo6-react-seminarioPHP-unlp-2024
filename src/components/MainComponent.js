@@ -7,7 +7,7 @@ import PaginaError from '../pages/PaginaError'
 
 function MainComponent() {
   return (
-    <main>
+    <main className='mainCSS'>
       <Routes>
         <Route path="/" element={<PropiedadPage />} />
         <Route path="/tipoPropiedades" element={<TipoPropiedadPage />} />

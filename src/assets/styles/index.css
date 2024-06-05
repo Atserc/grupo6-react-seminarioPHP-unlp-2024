@@ -15,3 +15,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* Colores:
+  - #ACB791
+  - #C5D4D0
+  - #9BB1A5
+  - #80968A
+  - #68736B
+*/
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerCSS {
+  flex: 0 0 auto;
+  background-color: #80968A;
+}
+
+.mainCSS {
+  flex: 1;
+  background-color: #9BB1A5;
+}
+
+.footerCSS {
+  flex: 0 0 auto;
+  background-color: #80968A;
+}

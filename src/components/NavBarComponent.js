@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBarComponent(){
+    const taiwindLI = 'text-lg hover:text-xl hover:font-bold transition-all duration-200'
+
     return (
         <nav>
-            <ul className='flex gap-3'>
-                <li>
+            <ul className='flex space-x-4'>
+                <li className={taiwindLI}>
                     <Link to="/">Propiedades</Link>
                 </li>
-                <li>
-                    <Link to="/tipoPropiedades">tipo Propiedades</Link>
+                <li className={taiwindLI}>
+                    <Link to="/tipoPropiedades">Tipo Propiedades</Link>
                 </li>
-                <li>
+                <li className={taiwindLI}>
                     <Link to="/reservas">Reservas</Link>
                 </li>
             </ul>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function NavBarComponent(){
     const taiwindLI = 'text-lg hover:text-xl hover:font-bold transition-all duration-200'
-
     return (
         <nav>
             <ul className='flex space-x-4'>

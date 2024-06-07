@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getData} from '../../utils/const.js';
+import {getData} from '../../utils/index.js';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
 
 // Boton de edit es <a> acá, porque redirecciona o otra web, en cambio el delete siempre es <button>
@@ -44,7 +44,7 @@ function PropiedadPage() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    getData('propiedades',setPropiedades, setLoading)
+    getData({link:'propiedades',setData: setPropiedades, setLoading: setLoading})
   }, []);
 
   return (

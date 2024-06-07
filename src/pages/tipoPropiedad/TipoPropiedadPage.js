@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getData} from '../../utils/const.js';
+import {getData} from '../../utils/index.js';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
 
 function showData(data) {
@@ -26,7 +26,7 @@ function TipoPropiedadPage() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    getData('tipos_propiedad',setTipoPropiedades, setLoading)
+    getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoading})
   }, []);
 
   return (

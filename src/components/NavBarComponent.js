@@ -1,20 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { getNavLinkClass } from '../utils/index';
 
 function NavBarComponent(){
-    const taiwindLI = 'text-lg hover:text-xl hover:font-bold transition-all duration-200'
     return (
         <nav>
             <ul className='flex space-x-4'>
-                <li className={taiwindLI}>
-                    <Link to="/">Propiedades</Link>
-                </li>
-                <li className={taiwindLI}>
-                    <Link to="/tipoPropiedades">Tipo Propiedades</Link>
-                </li>
-                <li className={taiwindLI}>
-                    <Link to="/reservas">Reservas</Link>
-                </li>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/">Propiedades</NavLink>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/tipo-propiedades">Tipo Propiedades</NavLink>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/reservas">Reservas</NavLink>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/crear-tipo-propiedad">CTP</NavLink>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/crear-reserva">CR</NavLink>
             </ul>
         </nav>
     );

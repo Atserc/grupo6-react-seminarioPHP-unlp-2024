@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getData} from '../../utils/const.js';
+import {getData} from '../../utils/index.js';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
 
 function showData(data) {
@@ -29,7 +29,7 @@ function ReservaPage() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    getData('reservas',setReservas, setLoading)
+    getData({link:'reservas',setData: setReservas, setLoading: setLoading})
   }, []);
 
   return (

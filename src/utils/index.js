@@ -26,7 +26,8 @@ export function sendData({link, data, setLoading = null, method = 'POST', setDat
     .then(response => response.json())
     .then((payload) => {
       if (payload['error']) {
-        setData(payload)
+        console.log(payload['error'])
+        setData(payload['error'])
       } else {
         setData(payload['data'])
       }

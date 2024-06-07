@@ -11,7 +11,7 @@ function showData(data) {
           <div className="flex justify-between items-center text-sm">
             <p>Tipo Propiedad: {tipoPropiedad.nombre}</p>
             <div className="flex gap-1">
-              <EditRedirectButton href={`/editarTipoPropiedad/${tipoPropiedad.id}`}>Editar</EditRedirectButton>
+              <EditRedirectButton href={`/editar-tipo-propiedad/${tipoPropiedad.id}`}>Editar</EditRedirectButton>
               <DeleteButton entityId={tipoPropiedad.id} type="tipoPropiedad">Eliminar</DeleteButton>
             </div>
           </div>

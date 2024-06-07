@@ -30,7 +30,7 @@ function showData(data) {
             <p>Tipo propiedad: {propiedad.tipo_propiedad_id}</p>
           </div>
           <div className="flex items-center justify-between">
-            <EditRedirectButton href={`/editPropiedad/${propiedad.id}`}>Editar</EditRedirectButton>
+            <EditRedirectButton href={`/editar-propiedad/${propiedad.id}`}>Editar</EditRedirectButton>
             <DeleteButton entityId={propiedad.id} type="propiedad">Eliminar</DeleteButton>
           </div>
         </div>

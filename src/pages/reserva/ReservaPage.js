@@ -15,7 +15,7 @@ function showData(data) {
             <p>Precio: ${reserva.valor_total}</p>
           </div>
           <div className="flex justify-between">
-            <EditRedirectButton href={`/editReserva/${reserva.id}`}>Editar</EditRedirectButton>
+            <EditRedirectButton href={`/editar-reserva/${reserva.id}`}>Editar</EditRedirectButton>
             <DeleteButton entityId={reserva.id} type="reserva">Eliminar</DeleteButton>
           </div>
         </div>

@@ -34,7 +34,7 @@ const FormComponent = () => {
         className="bg-white p-6 rounded shadow-md w-full max-w-sm"
       >
         <h2 className="text-2xl mb-4 text-center">Crear tipo de propiedad</h2>
-        {/* {data && <p className={data ? 'text-red-500':'text-green-500'}>{data ? data : data}</p>} */}
+         {data && <p className={data.error ? 'text-red-500':'text-green-500'}>{data.error ? data.error : data.data}</p>} 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="textInput">
             Nombre
@@ -46,20 +46,8 @@ const FormComponent = () => {
         </div>
       </form>
     </div>
+    // <Formulario type="tipoPropiedad"/>
   );
 };
 
 export default FormComponent;
-
-
-// import React from 'react'
-
-// function NewTipoPropiedad() {
-//   return (
-//     <div></div>
-//   )
-// }
-
-// export default NewTipoPropiedad
-
-// // formulario con nombre y mostrar mensaje del backend.

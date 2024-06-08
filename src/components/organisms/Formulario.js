@@ -60,9 +60,9 @@ function Formulario(type) {
     }, [inputValue])
     
     switch(type){
-        case 'propiedad': setRender(formularioPropiedad()); break;
-        case 'reserva':  setRender(formularioReserva()); break;
-        case 'tipoPropiedad': setRender(formularioTipoPropiedad()) ; break;
+        case 'propiedad': setRender(renderPropiedad()); break;
+        case 'reserva':  setRender(renderReserva()); break;
+        case 'tipoPropiedad': setRender(renderTipoPropiedad()) ; break;
       }
   
     return (

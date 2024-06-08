@@ -14,6 +14,7 @@ const alertaConfirmacionBorrado = (mensaje,mensajeConfirm) => {
     confirmButtonText: "Confirmar"
   }).then((result) => {
     if (result.isConfirmed) {
+      // fetch function to delete
       Swal.fire({
         title: "Borrado!",
         text: mensajeConfirm,

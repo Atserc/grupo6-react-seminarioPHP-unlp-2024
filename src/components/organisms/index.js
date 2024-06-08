@@ -1,11 +1,33 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 // podría pasarsele un ID para saber qué se clickeó anteriormente.
+
+const alertaConfirmacionBorrado = (mensaje,mensajeConfirm) => {
+  Swal.fire({
+    title: "Esta seguro que desea borrar?",
+    text: mensaje,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Borrado!",
+        text: mensajeConfirm,
+        icon: "success"
+      });
+    }
+  });
+}
+
 const triggerWarning = (id, type) => {
   switch(type){
-    case 'propiedad': alert(`Esta seguro de eliminar la propiedad ${id}`); break;
-    case 'reserva':  alert(`Esta seguro de eliminar la reserva ${id}`); break;
-    case 'tipoPropiedad': alert(`Esta seguro de eliminar el tipo de propiedad ${id}`); break;
+    case 'propiedad': alertaConfirmacionBorrado(`Esta seguro de eliminar la propiedad ${id}`,'borrado! (aun no hace nada)'); break;
+    case 'reserva':  alertaConfirmacionBorrado(`Esta seguro de eliminar la reserva ${id}`,'borrado! (aun no hace nada)'); break;
+    case 'tipoPropiedad': alertaConfirmacionBorrado(`Esta seguro de eliminar el tipo de propiedad ${id}`,'borrado! (aun no hace nada)'); break;
   }
 }
 

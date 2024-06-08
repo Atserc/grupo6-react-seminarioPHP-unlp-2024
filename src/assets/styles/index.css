@@ -16,15 +16,6 @@ code {
     monospace;
 }
 
-
-/* Colores:
-  - #ACB791
-  - #C5D4D0
-  - #9BB1A5
-  - #80968A
-  - #68736B
-*/
-
 html, body, #root {
   height: 100%;
 }
@@ -36,15 +27,12 @@ html, body, #root {
 
 .headerCSS {
   flex: 0 0 auto;
-  background-color: #80968A;
 }
 
 .mainCSS {
   flex: 1;
-  background-color: #9BB1A5;
 }
 
 .footerCSS {
   flex: 0 0 auto;
-  background-color: #80968A;
 }

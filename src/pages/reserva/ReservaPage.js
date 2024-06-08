@@ -7,7 +7,7 @@ function showData(data, setLoading) {
   return (
     <GridDiv>
       {data.map((reserva) => (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6 transition-transform transform hover:scale-105">
+        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
           <h2 className="text-xl font-bold mb-2">{reserva.propiedad_id} | Por: {reserva.inquilino_id}</h2>
           <div className="mb-4 text-sm">
             <p>Fecha: {reserva.fecha_desde}</p>

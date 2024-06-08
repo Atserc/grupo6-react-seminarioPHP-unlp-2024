@@ -15,7 +15,7 @@ function showData(data, setLoading) {
   return (
     <GridDiv>
       {data.map((propiedad) => (
-        <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6 transition-transform transform hover:scale-105">
+        <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
           <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
           <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" />
           <div className="mb-4 text-sm">

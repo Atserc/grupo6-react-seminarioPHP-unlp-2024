@@ -11,7 +11,7 @@ import EditTipoPropiedad from '../pages/tipoPropiedad/EditTipoPropiedad'
 import { RESERVAS_INDEX, TIPO_PROPIEDADES_INDEX, TIPO_PROPIEDADES_EDIT, TIPO_PROPIEDADES_CREATE, INDEX, PROPIEDADES_EDIT} from '../routes'
 function MainComponent() {
   return (
-    <main className='mainCSS'>
+    <main className='mainCSS bg-gray-500'>
       <Routes>
         <Route path={INDEX} element={<PropiedadPage />} />
         <Route path={TIPO_PROPIEDADES_INDEX} element={<TipoPropiedadPage />} />

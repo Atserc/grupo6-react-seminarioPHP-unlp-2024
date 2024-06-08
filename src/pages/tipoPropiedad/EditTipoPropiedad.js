@@ -3,13 +3,14 @@ import { getData } from '../../utils/requests';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function showData() {
+function showData(preData) {
+  console.log(preData);
   return (
     <div>
       <h1>Editar tipo de propiedad</h1>
       <form>
         <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" />
+        <input type="text" id="nombre" name="nombre" value="" />
         <button type="submit">Editar</button>
       </form>
     </div>

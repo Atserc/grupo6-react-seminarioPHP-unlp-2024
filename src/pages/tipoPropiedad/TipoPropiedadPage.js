@@ -3,12 +3,13 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 import { TIPO_PROPIEDADES_EDIT } from '../../routes'
+
 function showData(data, setLoading) {
   console.log(data);
   return (
     <GridDiv>
       {data.map((tipoPropiedad) => (
-        <div key={tipoPropiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6 transition-transform transform hover:scale-105">
+        <div key={tipoPropiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
           <div className="flex justify-between items-center text-sm">
             <p>Tipo Propiedad: {tipoPropiedad.nombre}</p>
             <div className="flex gap-1">

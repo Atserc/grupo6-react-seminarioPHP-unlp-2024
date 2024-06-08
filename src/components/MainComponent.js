@@ -5,6 +5,7 @@ import TipoPropiedadPage from '../pages/tipoPropiedad/TipoPropiedadPage'
 import NewTipoPropiedadPage from '../pages/tipoPropiedad/NewTipoPropiedad'
 import ReservaPage from '../pages/reserva/ReservaPage'
 import PaginaError from '../pages/PaginaError'
+import EditTipoPropiedad from '../pages/tipoPropiedad/EditTipoPropiedad'
 
 function MainComponent() {
   return (
@@ -12,6 +13,7 @@ function MainComponent() {
       <Routes>
         <Route path="/" element={<PropiedadPage />} />
         <Route path="/tipo-propiedades" element={<TipoPropiedadPage />} />
+        <Route path="/editar-tipo-propiedad/:id" element={<EditTipoPropiedad />} />
         <Route path="/crear-tipo-propiedad" element={<NewTipoPropiedadPage />} />
         <Route path="/reservas" element={<ReservaPage />} />
         <Route path="*" element={<PaginaError />} />

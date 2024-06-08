@@ -1,8 +1,34 @@
 import React from 'react'
+import {getData} from '../../utils/index.js';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+function showData() {
+  return (
+    <div>
+      <h1>Editar tipo de propiedad</h1>
+      <form>
+        <label htmlFor="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" />
+        <button type="submit">Editar</button>
+      </form>
+    </div>
+  )
+}
 
 function EditTipoPropiedad() {
+  const [tipoPropiedad, setTipoPropiedad] = useState([])
+  const [loading, setLoading] = useState(true);
+  const {id} = useParams();
+
+  useEffect(() => {
+    getData({link:`tipos_propiedad/${id}`,setData: setTipoPropiedad, setLoading: setLoading})
+  }, [id]);
+
   return (
-    <div>EditTipoPropiedad</div>
+    <div>
+        {loading ? <p>Cargando...</p> : showData(tipoPropiedad)}
+    </div>
   )
 }
 

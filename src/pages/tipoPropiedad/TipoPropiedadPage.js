@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {getData} from '../../utils/index.js';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
+import { Link } from 'react-router-dom';
 
 function showData(data, setLoading, setData, loading, response) {
   console.log(data);
@@ -11,8 +12,8 @@ function showData(data, setLoading, setData, loading, response) {
           <div className="flex justify-between items-center text-sm">
             <p>Tipo Propiedad: {tipoPropiedad.nombre}</p>
             <div className="flex gap-1">
-              <EditRedirectButton href={`/editar-tipo-propiedad/${tipoPropiedad.id}`}>Editar</EditRedirectButton>
               <DeleteButton entityId={tipoPropiedad.id} type="tipos_propiedad" setLoading={setLoading} data={response} setData={setData} loading={loading}>Eliminar</DeleteButton>
+              <EditRedirectButton> <Link to={`/editar-tipo-propiedad/${tipoPropiedad.id}`}> Editar </Link> </EditRedirectButton>
             </div>
           </div>
         </div>

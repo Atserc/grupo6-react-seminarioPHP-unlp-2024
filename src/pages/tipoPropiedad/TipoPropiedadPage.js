@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {getData} from '../../utils/index.js';
 import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
 
-function showData(data) {
+function showData(data, setLoading, setData, loading, response) {
   console.log(data);
   return (
     <GridDiv>
@@ -12,7 +12,7 @@ function showData(data) {
             <p>Tipo Propiedad: {tipoPropiedad.nombre}</p>
             <div className="flex gap-1">
               <EditRedirectButton href={`/editar-tipo-propiedad/${tipoPropiedad.id}`}>Editar</EditRedirectButton>
-              <DeleteButton entityId={tipoPropiedad.id} type="tipoPropiedad">Eliminar</DeleteButton>
+              <DeleteButton entityId={tipoPropiedad.id} type="tipos_propiedad" setLoading={setLoading} data={response} setData={setData} loading={loading}>Eliminar</DeleteButton>
             </div>
           </div>
         </div>
@@ -24,14 +24,15 @@ function showData(data) {
 function TipoPropiedadPage() {
   const [tipoPropiedades, setTipoPropiedades] = useState([])
   const [loading, setLoading] = useState(true);
-  
+  const [response, setData] = useState();
+
   useEffect(() => {
     getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoading})
   }, []);
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(tipoPropiedades)}
+        {loading ? <p>Cargando...</p> : showData(tipoPropiedades, setLoading, setData, loading, response)}
     </div>
   )
 }

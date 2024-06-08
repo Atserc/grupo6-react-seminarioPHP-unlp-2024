@@ -2,7 +2,7 @@ import React from 'react'
 
 function EditPropiedad() {
   return (
-    <div>EditPropiedad</div>
+    <div>FORMULARIO EDICION PROPIEDAD</div>
   )
 }
 

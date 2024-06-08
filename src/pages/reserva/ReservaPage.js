@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {getData} from '../../utils/index.js';
-import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
+import { getData } from '../../utils/requests';
+import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms'
 
-function showData(data) {
+function showData(data, setLoading) {
   console.log(data);
   return (
     <GridDiv>
@@ -16,7 +16,7 @@ function showData(data) {
           </div>
           <div className="flex justify-between">
             <EditRedirectButton href={`/editar-reserva/${reserva.id}`}>Editar</EditRedirectButton>
-            <DeleteButton entityId={reserva.id} type="reservas">Eliminar</DeleteButton>
+            <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading}>Eliminar</DeleteButton>
           </div>
         </div>
       ))}
@@ -34,7 +34,7 @@ function ReservaPage() {
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(reservas)}
+        {loading ? <p>Cargando...</p> : showData(reservas, setLoading)}
     </div>
   )
 }

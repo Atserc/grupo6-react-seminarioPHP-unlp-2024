@@ -1,5 +1,5 @@
 import React from 'react'
-import {getData} from '../../utils/index.js';
+import { getData } from '../../utils/requests';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 

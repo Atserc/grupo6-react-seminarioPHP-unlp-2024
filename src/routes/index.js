@@ -1,0 +1,12 @@
+export const TIPO_PROPIEDADES_INDEX = '/tipo-propiedades';
+export const TIPO_PROPIEDADES_EDIT = '/tipo-propiedades/editar/:id'
+export const TIPO_PROPIEDADES_CREATE = '/tipo-propiedades/crear'
+export const RESERVAS_INDEX = '/reservas'
+export const RESERVAS_DELETE = '/reservas/'
+export const RESERVAS_CREATE = '/reservas'
+export const RESERVAS_EDIT = '/reservas'
+export const PROPIEDADES_INDEX = '/propiedades'
+export const PROPIEDADES_CREATE = '/propiedades'
+export const PROPIEDADES_EDIT = '/propiedades/editar/:id'
+export const PROPIEDADES_DELETE = '/propiedades/'
+export const INDEX = '/'

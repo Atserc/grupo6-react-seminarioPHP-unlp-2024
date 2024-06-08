@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyledInput, SubmitButton } from '../../components/organisms/index.js'
-import { sendData } from '../../utils/index';
+import { StyledInput, SubmitButton } from '../../components/organisms'
+import { sendData } from '../../utils/requests';
 
 /* EL COMENTARIO DE LA RESPUESTA DE LA REQUEST ANDA, PERO NO SÉ COMO MOSTRAR BIEN LOS MENSAJES.
 SI RETORNA ERROR, SE ACCEDE CON DATA.ERROR, SI RETORNA SUCCESS, POR ALGUNA RAZON RETORNA DIRECTAMENTE,
@@ -46,7 +46,6 @@ const FormComponent = () => {
         </div>
       </form>
     </div>
-    // <Formulario type="tipoPropiedad"/>
   );
 };
 

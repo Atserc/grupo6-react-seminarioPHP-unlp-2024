@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import {getData} from '../../utils/index.js';
-import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms/index.js'
+import { getData } from '../../utils/requests';
+import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms'
 
 // Boton de edit es <a> acá, porque redirecciona o otra web, en cambio el delete siempre es <button>
 // No se si es seguro poner como key la propiedad id, creo que existe alguna funcion de tipo idx automatica en js que le asigna correctamente una key
@@ -10,7 +10,7 @@ import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/orga
 // En Reservas me parece que hay que hacer doble fetching, uno es getReserva, y otro getPropiedad Id, para que en el vistado de reserva se vea la propiedad
 // con su nombre y datos, y no sólo el ID que no indica nada.
 
-function showData(data, setData, response, loading, setLoading) {
+function showData(data, setLoading) {
   // console.log(data);
   return (
     <GridDiv>
@@ -30,8 +30,8 @@ function showData(data, setData, response, loading, setLoading) {
             <p>Tipo propiedad: {propiedad.tipo_propiedad_id}</p>
           </div>
           <div className="flex items-center justify-between">
-            <EditRedirectButton href={`/editar-propiedad/${propiedad.id}`}>Editar</EditRedirectButton>
-            <DeleteButton entityId={propiedad.id} type="propiedades" setData={setData} data={response} setLoading={setLoading} loading={loading}>Eliminar</DeleteButton>
+            <EditRedirectButton href={`/propiedades/editar/${propiedad.id}`}>Editar</EditRedirectButton>
+            <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading}>Eliminar</DeleteButton>
           </div>
         </div>
       ))}
@@ -41,7 +41,6 @@ function showData(data, setData, response, loading, setLoading) {
 
 function PropiedadPage() {
   const [propiedades, setPropiedades] = useState([])
-  const [response, setData] = useState()
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -50,7 +49,7 @@ function PropiedadPage() {
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(propiedades, setData, response, loading, setLoading)}
+        {loading ? <p>Cargando...</p> : showData(propiedades, setLoading)}
     </div>
   )
 }

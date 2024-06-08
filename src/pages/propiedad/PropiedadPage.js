@@ -10,7 +10,7 @@ import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/orga
 // En Reservas me parece que hay que hacer doble fetching, uno es getReserva, y otro getPropiedad Id, para que en el vistado de reserva se vea la propiedad
 // con su nombre y datos, y no sólo el ID que no indica nada.
 
-function showData(data) {
+function showData(data, setData, response, loading, setLoading) {
   // console.log(data);
   return (
     <GridDiv>
@@ -31,7 +31,7 @@ function showData(data) {
           </div>
           <div className="flex items-center justify-between">
             <EditRedirectButton href={`/editar-propiedad/${propiedad.id}`}>Editar</EditRedirectButton>
-            <DeleteButton entityId={propiedad.id} type="propiedad">Eliminar</DeleteButton>
+            <DeleteButton entityId={propiedad.id} type="propiedades" setData={setData} data={response} setLoading={setLoading} loading={loading}>Eliminar</DeleteButton>
           </div>
         </div>
       ))}
@@ -41,6 +41,7 @@ function showData(data) {
 
 function PropiedadPage() {
   const [propiedades, setPropiedades] = useState([])
+  const [response, setData] = useState()
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -49,7 +50,7 @@ function PropiedadPage() {
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(propiedades)}
+        {loading ? <p>Cargando...</p> : showData(propiedades, setData, response, loading, setLoading)}
     </div>
   )
 }

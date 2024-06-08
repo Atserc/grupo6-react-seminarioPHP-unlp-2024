@@ -14,7 +14,7 @@ export function getData({link, setData, setLoading = null, method = 'GET'}) {
 }
 
 // basic function to post/put/patch data on endpoints.
-export function sendData({link, data, setLoading = null, method = 'POST', setData}) {
+export function sendData({link, data, setLoading, method = 'POST', setData}) {
   console.log(data, 'DATA ENVIADA')
   fetch(`${BASE_URL}${link}`, {
       method: method,
@@ -26,9 +26,22 @@ export function sendData({link, data, setLoading = null, method = 'POST', setDat
     .then(response => response.json())
     .then((payload) => {
       setData(payload)
+      console.log(payload);
     })
-    .catch(error => console.log('error'))
+    .catch(error => console.log(error))
     .finally(() => setLoading(false));
+}
+
+export function deleteData({link, id, setLoading, method = 'DELETE'}) {
+   return fetch(`${BASE_URL}${link}`, {
+      method: method
+    })
+    .then(response => response.json())
+    .then((payload) => {
+      return payload;
+    })
+    .catch(error => console.log(error['error']))
+    .finally(() => console.log('termine'));
 }
 
 // get active nav-link-class

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { deleteData } from '../../utils/index';
 
-// podría pasarsele un ID para saber qué se clickeó anteriormente.
-
-const alertaConfirmacionBorrado = (mensaje,mensajeConfirm) => {
-  Swal.fire({
+// EL MODAL DE ELIMINAR ROMPE LOS ESTILOS EN TIPO PROPIEDAD
+// CUANDO ALGO SE ELIMINA, NO SE VUELVE A RE-RENDERIZAR
+// CUANDO LA RESPUESTA ES CORRECTA EN RESERVA ME IMPRIMIO OBJECT, VER COMO SE ACCEDE CORRECTAMENTE AL MENSAJE.
+const AlertaConfirmacionBorrado = async(mensaje,mensajeConfirm, type, id, setLoading) => {
+  const result = await Swal.fire({
     title: "Esta seguro que desea borrar?",
     text: mensaje,
     icon: "warning",
@@ -12,23 +14,39 @@ const alertaConfirmacionBorrado = (mensaje,mensajeConfirm) => {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Confirmar"
-  }).then((result) => {
+  })
     if (result.isConfirmed) {
-      // fetch function to delete
-      Swal.fire({
-        title: "Borrado!",
-        text: mensajeConfirm,
-        icon: "success"
-      });
+      try {
+        Swal.fire({
+          title: 'Borrando...',
+          text: 'Por favor espere',
+          icon: 'info',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+        const payload = await deleteData({link: `${type}/${id}`, id, setLoading: setLoading});
+        Swal.fire({
+          title: payload.error ? "Error" : "Borrado!",
+          text: payload.error ? payload.error : payload.data,
+          icon: payload.error ? "error" : 'success'
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: error,
+          icon: "error"
+        });
+      }
     }
-  });
-}
+  };
 
-const triggerWarning = (id, type) => {
+const triggerWarning = (id, type, setLoading) => {
   switch(type){
-    case 'propiedad': alertaConfirmacionBorrado(`Esta seguro de eliminar la propiedad ${id}`,'borrado! (aun no hace nada)'); break;
-    case 'reserva':  alertaConfirmacionBorrado(`Esta seguro de eliminar la reserva ${id}`,'borrado! (aun no hace nada)'); break;
-    case 'tipoPropiedad': alertaConfirmacionBorrado(`Esta seguro de eliminar el tipo de propiedad ${id}`,'borrado! (aun no hace nada)'); break;
+    case 'propiedades': AlertaConfirmacionBorrado(`Esta seguro de eliminar la propiedad ${id}`, 'borrado! (aun no hace nada)', type, id, setLoading); break;
+    case 'reservas':  AlertaConfirmacionBorrado(`Esta seguro de eliminar la reserva ${id}`, 'borrado! (aun no hace nada)', type, id, setLoading); break;
+    case 'tipos_propiedad': AlertaConfirmacionBorrado(`Esta seguro de eliminar el tipo de propiedad ${id}`, 'borrado! (aun no hace nada)', type, id, setLoading); break;
   }
 }
 
@@ -44,8 +62,8 @@ export const EditRedirectButton = ({ children, className= 'bg-blue-500 text-whit
   return <a {...props} className={`${className}`}>{children}</a>
 }
 
-export const DeleteButton = ({ children, className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-300" ,  entityId, type, ...props }) => {
-  return <button {...props} className={`${className}`} onClick={() => triggerWarning(entityId, type)}>{children}</button>
+export const DeleteButton = ({ children, className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-300" , setLoading, entityId, type, ...props }) => {
+  return <button {...props} className={`${className}`} onClick={() => triggerWarning(entityId, type, setLoading)}>{children}</button>
 }
 
 export const StyledInput = ({children, className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", type, value, label, id, name, placeholder, onChange, ...props}) => {

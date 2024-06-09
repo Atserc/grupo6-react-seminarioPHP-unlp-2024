@@ -1,23 +1,12 @@
-import React from 'react'
-import { getData } from '../../utils/requests';
-import { useState, useEffect } from 'react';
+
+// // formulario precargado y mostrar mensaje del backend.
+// // boton de eliminar
+import { TipoPropiedadForm } from '../../components/organisms'
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getData } from '../../utils/requests';
 
-function showData(preData) {
-  console.log(preData);
-  return (
-    <div>
-      <h1>Editar tipo de propiedad</h1>
-      <form>
-        <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" value="" />
-        <button type="submit">Editar</button>
-      </form>
-    </div>
-  )
-}
-
-function EditTipoPropiedad() {
+const EditTipoPropiedad = () => {
   const [tipoPropiedad, setTipoPropiedad] = useState([])
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
@@ -26,14 +15,17 @@ function EditTipoPropiedad() {
     getData({link:`tipos_propiedad/${id}`,setData: setTipoPropiedad, setLoading: setLoading})
   }, [id]);
 
-  return (
-    <div>
-        {loading ? <p>Cargando...</p> : showData(tipoPropiedad)}
-    </div>
-  )
+    return (
+       <>
+          {loading ? <p>Cargando...</p> : <TipoPropiedadForm
+          link={`tipos_propiedad/${id}`}
+          method="PUT"
+          tipoPropiedad={tipoPropiedad}
+          titleMessage="Editar Tipo de Propiedad"
+          buttonMessage="Confirmar"
+        />}
+      </>
+    )
 }
 
 export default EditTipoPropiedad
-
-// formulario precargado y mostrar mensaje del backend.
-// boton de eliminar

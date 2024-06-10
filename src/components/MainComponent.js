@@ -10,7 +10,7 @@ import ReservaPage from '../pages/reserva/ReservaPage'
 import EditReserva from '../pages/reserva/EditReserva'
 import NewReserva from '../pages/reserva/NewReserva'
 import PaginaError from '../pages/PaginaError'
-import { RESERVAS_INDEX, RESERVAS_CREATE, RESERVAS_EDIT, TIPO_PROPIEDADES_INDEX, TIPO_PROPIEDADES_EDIT, TIPO_PROPIEDADES_CREATE, INDEX, PROPIEDADES_EDIT} from '../routes'
+import { RESERVAS_INDEX, RESERVAS_CREATE, PROPIEDADES_CREATE, RESERVAS_EDIT, TIPO_PROPIEDADES_INDEX, TIPO_PROPIEDADES_EDIT, TIPO_PROPIEDADES_CREATE, INDEX, PROPIEDADES_EDIT} from '../routes'
 
 function MainComponent() {
   return (

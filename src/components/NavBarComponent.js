@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { getNavLinkClass } from '../utils/index';
-import { RESERVAS_INDEX, TIPO_PROPIEDADES_INDEX, TIPO_PROPIEDADES_CREATE, INDEX} from '../routes'
+import { RESERVAS_INDEX, RESERVAS_CREATE, TIPO_PROPIEDADES_INDEX, TIPO_PROPIEDADES_CREATE, INDEX} from '../routes'
 function NavBarComponent(){
     return (
         <nav>
@@ -10,7 +10,7 @@ function NavBarComponent(){
                 <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to={TIPO_PROPIEDADES_INDEX}>Tipo Propiedades</NavLink>
                 <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to={RESERVAS_INDEX}>Reservas</NavLink>
                 <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to={TIPO_PROPIEDADES_CREATE}>CTP</NavLink>
-                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to="/crear-reserva">CR</NavLink>
+                <NavLink className={({ isActive }) => getNavLinkClass(isActive)} to={RESERVAS_CREATE}>CR</NavLink>
             </ul>
         </nav>
     );

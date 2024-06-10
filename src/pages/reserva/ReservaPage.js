@@ -3,8 +3,19 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function showData(data, setLoading) {
-  console.log(data);
+function showData(data, setLoading, propiedades, inquilinos) {
+  console.log(data, propiedades, inquilinos);
+
+  // No sé que hacen pero funcionan (ofrecen un array donde muestran nombre en vez de id con la prop id de la reserva.)
+  const propiedadMap = propiedades.reduce((acc, propiedad) => {
+    acc[propiedad.id] = propiedad.domicilio;
+    return acc;
+  }, {});
+  const inquilinoMap = inquilinos.reduce((acc, inquilino) => {
+    acc[inquilino.id] = `${inquilino.apellido} ${inquilino.nombre}`;
+    return acc;
+  }, {});
+  
   return (
     <div className="relative">
       <GridDiv>
@@ -32,15 +43,21 @@ function showData(data, setLoading) {
 
 function ReservaPage() {
   const [reservas, setReservas] = useState([])
-  const [loading, setLoading] = useState(true);
+  const [propiedades, setPropiedades] = useState([])
+  const [inquilinos, setInquilinos] = useState([])
+  const [loadingReservas, setLoadingReservas] = useState(true);
+  const [loadingPropiedades, setLoadingPropiedades] = useState(true)
+  const [loadingInquilinos, setLoadingInquilinos] = useState(true)
   
   useEffect(() => {
-    getData({link:'reservas',setData: setReservas, setLoading: setLoading})
+    getData({link:'reservas',setData: setReservas, setLoading: setLoadingReservas})
+    getData({link:`propiedades`, setData: setPropiedades, setLoading: setLoadingPropiedades})
+    getData({link:`inquilinos`, setData: setInquilinos, setLoading: setLoadingInquilinos})
   }, []);
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(reservas, setLoading)}
+        {loadingReservas && loadingPropiedades ? <p>Cargando...</p> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
     </div>
   )
 }

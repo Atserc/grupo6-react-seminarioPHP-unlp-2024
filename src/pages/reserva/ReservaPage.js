@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton } from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms'
+import { Link } from 'react-router-dom';
 
 function showData(data, setLoading, propiedades, inquilinos) {
   console.log(data, propiedades, inquilinos);
@@ -16,22 +17,27 @@ function showData(data, setLoading, propiedades, inquilinos) {
   }, {});
   
   return (
-    <GridDiv>
-      {data.map((reserva) => (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
-          <h2 className="text-xl font-bold mb-2">{propiedadMap[reserva.propiedad_id]} | Por: {inquilinoMap[reserva.inquilino_id]}</h2>
-          <div className="mb-4 text-sm">
-            <p>Fecha: {reserva.fecha_desde}</p>
-            <p>Noches Reservadas: {reserva.cantidad_noches}</p>
-            <p>Precio: ${reserva.valor_total}</p>
+    <div className="relative">
+      <GridDiv>
+        {data.map((reserva) => (
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
+            <h2 className="text-xl font-bold mb-2">{reserva.propiedad_id} | Por: {reserva.inquilino_id}</h2>
+            <div className="mb-4 text-sm">
+              <p>Fecha: {reserva.fecha_desde}</p>
+              <p>Noches Reservadas: {reserva.cantidad_noches}</p>
+              <p>Precio: ${reserva.valor_total}</p>
+            </div>
+            <div className="flex justify-between">
+              <EditRedirectButton href={`/editar-reserva/${reserva.id}`}>Editar</EditRedirectButton>
+              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading}>Eliminar</DeleteButton>
+            </div>
           </div>
-          <div className="flex justify-between">
-            <EditRedirectButton href={`/reservas/editar-reserva/${reserva.id}`}>Editar</EditRedirectButton>
-            <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading}>Eliminar</DeleteButton>
-          </div>
-        </div>
-      ))}
-    </GridDiv>
+        ))}
+      </GridDiv>
+      <AddButton>
+        <Link to='/reservas/crear'> Agregar </Link>
+      </AddButton>
+    </div>
   )
 }
 

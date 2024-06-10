@@ -1,6 +1,7 @@
 import { BASE_URL } from '../../../constants'
-export default function deleteData({link, id, setLoading, method = 'DELETE'}) {
-  return fetch(`${BASE_URL}${link}`, {
+
+function deleteData({link, id, setLoading, method = 'DELETE'}) {
+  return fetch(`${BASE_URL}${link}/${id}`, {
      method: method
    })
    .then(response => response.json())
@@ -8,5 +9,7 @@ export default function deleteData({link, id, setLoading, method = 'DELETE'}) {
      return payload;
    })
    .catch(error => console.log(error['error']))
-   .finally(() => console.log('termine'));
+   .finally(() => setLoading(false));
 }
+
+export default deleteData;

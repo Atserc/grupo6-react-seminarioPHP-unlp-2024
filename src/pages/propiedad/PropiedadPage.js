@@ -3,20 +3,14 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-// Boton de edit es <a> acá, porque redirecciona o otra web, en cambio el delete siempre es <button>
-// No se si es seguro poner como key la propiedad id, creo que existe alguna funcion de tipo idx automatica en js que le asigna correctamente una key
-// basada en el loop en el que está.
-// Por alguna razón el useEffect se triggerea varias veces al renderizar, averiguar
-// Verificar urls que se envia en el edit y realizar los templates necesarios.
-// En Reservas me parece que hay que hacer doble fetching, uno es getReserva, y otro getPropiedad Id, para que en el vistado de reserva se vea la propiedad
-// con su nombre y datos, y no sólo el ID que no indica nada.
-
-function showData(data, setLoading) {
-  // console.log(data);
+function showData(data, localidades, tipoPropiedades, setLoading) {
   return (
     <div className="relative">
       <GridDiv>
-        {data.map((propiedad) => (
+        {data.map((propiedad) => {
+          const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
+          const localidad = localidades.find(loc => loc.id === propiedad.localidad_id);
+          return(
           <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
             <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
             <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" />
@@ -29,14 +23,15 @@ function showData(data, setLoading) {
               <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
               <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p>
               <p>Valor por noche: ${propiedad.valor_noche}</p>
-              <p>Tipo propiedad: {propiedad.tipo_propiedad_id}</p>
+              <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
+              <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
             </div>
             <div className="flex items-center justify-between">
               <EditRedirectButton href={`/propiedades/editar/${propiedad.id}`}>Editar</EditRedirectButton>
               <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading}>Eliminar</DeleteButton>
             </div>
           </div>
-        ))}
+        )})}
       </GridDiv>
       <AddButton>
         <Link to='/propiedades/crear'> Agregar </Link>
@@ -47,21 +42,24 @@ function showData(data, setLoading) {
 
 function PropiedadPage() {
   const [propiedades, setPropiedades] = useState([])
-  const [loading, setLoading] = useState(true);
-  
+  const [tipoPropiedades, setTipoPropiedades] = useState([]);
+  const [localidades, setLocalidades] = useState([]);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [loadingPropiedades, setLoadingPropiedades] = useState(true);
+  const [loadingLocalidades, setLoadingLocalidades] = useState(true);
+  const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
+
   useEffect(() => {
-    getData({link:'propiedades',setData: setPropiedades, setLoading: setLoading})
-  }, []);
+        getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
+        getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
+        getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
+      }, []);
 
   return (
     <div>
-        {loading ? <p>Cargando...</p> : showData(propiedades, setLoading)}
+      {loadingPropiedades && loadingTipoPropiedades && loadingLocalidades && loadingDelete ? <p>Cargando...</p> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
     </div>
   )
 }
 
 export default PropiedadPage;
-
-// listado, filtros.
-// boton para crear propiedad (renderiza una nueva pagina).
-// boton de eliminar propiedad (se pide confirmacion).

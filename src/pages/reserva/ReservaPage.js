@@ -57,7 +57,7 @@ function ReservaPage() {
 
   return (
     <div>
-        {loadingReservas && loadingPropiedades ? <p>Cargando...</p> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
+        {loadingReservas && loadingPropiedades && loadingInquilinos ? <p>Cargando...</p> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
     </div>
   )
 }

@@ -27,7 +27,9 @@ function showData(data, localidades, tipoPropiedades, setLoading) {
               <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
             </div>
             <div className="flex items-center justify-between">
-              <EditRedirectButton href={`/propiedades/editar/${propiedad.id}`}>Editar</EditRedirectButton>
+              <EditRedirectButton>
+                <Link to={`/propiedades/editar/${propiedad.id}`}> Editar </Link>
+              </EditRedirectButton>              
               <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading}>Eliminar</DeleteButton>
             </div>
           </div>
@@ -57,7 +59,7 @@ function PropiedadPage() {
 
   return (
     <div>
-      {loadingPropiedades && loadingTipoPropiedades && loadingLocalidades && loadingDelete ? <p>Cargando...</p> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
+      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <p>Cargando...</p> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
     </div>
   )
 }

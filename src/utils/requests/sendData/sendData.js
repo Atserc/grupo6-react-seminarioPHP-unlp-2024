@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../../constants'
 
-export default async function sendData({link, data, setLoading, method = 'POST', setData}) {
+export default async function sendData({link, data, setLoading, method = 'POST', setData = null}) {
   try {
     const response = await fetch(`${BASE_URL}${link}`, {
       method: method,
@@ -10,7 +10,13 @@ export default async function sendData({link, data, setLoading, method = 'POST',
       body: JSON.stringify(data)
     })
     if (!response.ok) {
-      throw new Error(`Network response was not ok, status: ${response.status}`);
+      let res = await response.json();
+      console.log(res, 'hla')
+      if (setData){
+        setData(res);
+      }
+      
+      return res;
     }
 
     // Intentar convertir la respuesta a JSON
@@ -27,7 +33,7 @@ export default async function sendData({link, data, setLoading, method = 'POST',
     // .finally(() => setLoading(false));
   } catch (error) {
     console.error('Error en la solicitud:', error);
-    return { error: error.message };
+    // return { error: error.message };
   }finally {
     setLoading(false);
   }

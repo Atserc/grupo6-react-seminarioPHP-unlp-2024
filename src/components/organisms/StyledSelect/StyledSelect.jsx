@@ -9,7 +9,8 @@ export default function StyledSelect({
 }){
   return <>
     <label htmlFor="select" className={labelClass}>{label}</label>
-    <select onChange={onChange} className={className} id={id} name={name}>
+    <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
+      <option value="" disabled>Seleccione un elemento</option>
       {options.map((el)=>(
         <option value={el.id}>{entityType === 'inquilinos' ? (`${el.nombre} ${el.apellido}`):el.domicilio}</option>
       ))}

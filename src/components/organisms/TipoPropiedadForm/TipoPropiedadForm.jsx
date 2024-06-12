@@ -11,7 +11,6 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [formData, setFormData] = useState({ nombre: '' });
-
   
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -23,7 +22,8 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
   
   const handleSubmit = async (event, method, link) => {
     event.preventDefault();
-    sendData({link, method, data: formData, setLoading: setLoading, setData})
+    let res = await sendData({link, method, data: formData, setLoading: setLoading, setData})
+    console.log(data)
   };
 
   return (

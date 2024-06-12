@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { deleteData, sendData} from '../../../utils/requests'
 
-export default async function AlertaConfirmacionBorrado(mensaje,mensajeConfirm, type, id, setLoading) {
+export default async function AlertaConfirmacionBorrado(mensaje, type, id, setLoading) {
   const result = await Swal.fire({
     title: "Esta seguro que desea borrar?",
     text: mensaje,

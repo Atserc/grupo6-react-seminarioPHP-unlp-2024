@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
 function showData(data, setLoading, propiedades, inquilinos) {
@@ -57,7 +57,7 @@ function ReservaPage() {
 
   return (
     <div>
-        {loadingReservas && loadingPropiedades && loadingInquilinos ? <p>Cargando...</p> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
+        {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
     </div>
   )
 }

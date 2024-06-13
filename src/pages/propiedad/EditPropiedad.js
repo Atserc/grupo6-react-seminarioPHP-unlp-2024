@@ -2,7 +2,7 @@ import React from 'react'
 import { getData } from '../../utils/requests';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { StyledInput, StyledSelect } from '../../components/organisms'
+import { LoadingSpinner, StyledInput, StyledSelect } from '../../components/organisms'
 
 function showData(preData, localidades, tipoPropiedades) {
   console.log(preData);
@@ -64,11 +64,10 @@ function EditPropiedad() {
   
   return (
     <div>
-        {loadingPropiedad && loadingLocalidades && loadingTipoPropiedades ? <p>Cargando...</p> : showData(propiedad, localidades, tipoPropiedades)}
+        {loadingPropiedad && loadingLocalidades && loadingTipoPropiedades ? <LoadingSpinner /> : showData(propiedad, localidades, tipoPropiedades)}
     </div>
   )
 }
 
 export default EditPropiedad;
-
 // formulario precargado y mostrar mensaje del backend.

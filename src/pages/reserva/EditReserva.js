@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getData } from '../../utils/requests';
-import { ReservaForm } from '../../components/organisms'
+import { LoadingSpinner, ReservaForm } from '../../components/organisms'
 
 // const showData = (propiedades, reserva, inquilinos) => {
 //   console.log(propiedades)
@@ -32,7 +32,7 @@ function EditReserva() {
 
   return (
     <div>
-        {loading && loadingI && loadingP ? <p>Cargando...</p> : <ReservaForm method="PUT" propiedades={propiedades} reserva={reserva} inquilinos={inquilinos} link={`reservas/${id}`} titleMessage="Editar Reserva" buttonMessage="Confirmar cambios"/>}
+        {loading && loadingI && loadingP ? <LoadingSpinner /> : <ReservaForm method="PUT" propiedades={propiedades} reserva={reserva} inquilinos={inquilinos} link={`reservas/${id}`} titleMessage="Editar Reserva" buttonMessage="Confirmar cambios"/>}
     </div>
   )
 }

@@ -8,8 +8,9 @@ export default async function sendData({link, data, setLoading, method = 'POST',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    })
-    if (!response.ok) {
+      })
+      console.log(response)
+      if (!response.ok) {
       let res = await response.json();
       console.log(res, 'hla')
       if (setData){

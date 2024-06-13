@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
 function showData(data, localidades, tipoPropiedades, setLoading) {
@@ -59,7 +59,7 @@ function PropiedadPage() {
 
   return (
     <div>
-      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <p>Cargando...</p> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
+      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
     </div>
   )
 }

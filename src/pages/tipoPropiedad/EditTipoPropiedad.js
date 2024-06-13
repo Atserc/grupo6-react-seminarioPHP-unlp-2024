@@ -1,7 +1,7 @@
 
 // // formulario precargado y mostrar mensaje del backend.
 // // boton de eliminar
-import { TipoPropiedadForm } from '../../components/organisms'
+import { LoadingSpinner, TipoPropiedadForm } from '../../components/organisms'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getData } from '../../utils/requests';
@@ -17,7 +17,7 @@ const EditTipoPropiedad = () => {
 
     return (
        <>
-          {loading ? <p>Cargando...</p> : <TipoPropiedadForm
+          {loading ? <LoadingSpinner /> : <TipoPropiedadForm
           link={`tipos_propiedad/${id}`}
           method="PUT"
           tipoPropiedad={tipoPropiedad}

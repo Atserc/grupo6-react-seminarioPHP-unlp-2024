@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton } from '../../components/organisms';
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms';
 import { Link } from 'react-router-dom';
 
 function showData(data, setLoading) {
@@ -38,7 +38,7 @@ function TipoPropiedadPage() {
 
   return (
     <div>
-      {loading ? <p>Cargando...</p> : showData(tipoPropiedades, setLoading)}
+      {loading ? <LoadingSpinner /> : showData(tipoPropiedades, setLoading)}
     </div>
   );
 }

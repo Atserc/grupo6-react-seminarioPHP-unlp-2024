@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 import { sendData } from '../../../utils/requests'
+import Swal from 'sweetalert2';
 
 export default function ReservaForm({ link, method, reserva = null, inquilinos, propiedades, titleMessage, buttonMessage}) {
   const [loading, setLoading] = useState();
@@ -39,9 +40,23 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
       const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
       console.log(res)
       if (res.code != 200) {
-        setMessage(reserva ? 'No se pudo actualizar' : 'No se pudo crear');
+        setMessage(reserva ? '' : '');
+        const titulo = reserva ? 'No se pudo actualizar' : 'No se pudo crear';
+        Swal.fire({
+          icon: 'error',	
+          title: titulo,
+          showConfirmButton: false,
+          timer: 1500
+        })
       } else {
-        setMessage(reserva ? 'Reserva actualizada' : 'Reserva confirmada');
+        setMessage(reserva ? '' : '');
+        const titulo = reserva ? 'Reserva actualizada' : 'Reserva confirmada';
+        Swal.fire({
+          icon: 'success',
+          title: titulo,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     } catch (error) {
       console.log(error)

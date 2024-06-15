@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner} from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function showData(data, setLoading, propiedades, inquilinos) {
-  console.log(data, propiedades, inquilinos);
+function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading, refreshData}) {
+  console.log(data, propiedades, inquilinos, setLoading, 'HOLA');
 
   // No sé que hacen pero funcionan (ofrecen un array donde muestran nombre en vez de id con la prop id de la reserva.)
   const propiedadMap = propiedades.reduce((acc, propiedad) => {
@@ -29,7 +29,7 @@ function showData(data, setLoading, propiedades, inquilinos) {
             </div>
             <div className="flex justify-between">
               <EditRedirectButton href={`/reservas/editar/${reserva.id}`}>Editar</EditRedirectButton>
-              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading}>Eliminar</DeleteButton>
+              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>
         ))}
@@ -48,16 +48,32 @@ function ReservaPage() {
   const [loadingReservas, setLoadingReservas] = useState(true);
   const [loadingPropiedades, setLoadingPropiedades] = useState(true)
   const [loadingInquilinos, setLoadingInquilinos] = useState(true)
-  
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     getData({link:'reservas',setData: setReservas, setLoading: setLoadingReservas})
     getData({link:`propiedades`, setData: setPropiedades, setLoading: setLoadingPropiedades})
     getData({link:`inquilinos`, setData: setInquilinos, setLoading: setLoadingInquilinos})
   }, []);
 
+  const refreshData = (deleteId) => {
+    console.log(deleteId)
+    // setLoadingReservas(true);
+    // setLoadingPropiedades(true);
+    // setLoadingInquilinos(true);
+    // getData({ link: 'reservas', setData: setReservas, setLoading: setLoadingReservas });
+    // getData({ link: 'propiedades', setData: setPropiedades, setLoading: setLoadingPropiedades });
+    // getData({ link: 'inquilinos', setData: setInquilinos, setLoading: setLoadingInquilinos });
+    setReservas(reservas => reservas.filter(reserva => reserva.id !== deleteId));
+  };
+
+
+  useEffect((deleteId) => {
+    refreshData(deleteId);
+  }, []);
+
   return (
     <div>
-        {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData(reservas, setLoadingReservas, propiedades, inquilinos)}
+        {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData({data: reservas, setLoadingReservas, setLoading, propiedades, inquilinos, setLoading, refreshData})}
     </div>
   )
 }

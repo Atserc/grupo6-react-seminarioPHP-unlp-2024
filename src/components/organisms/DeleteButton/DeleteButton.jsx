@@ -6,6 +6,7 @@ export default function DeleteButton({
   setLoading, 
   entityId, 
   type, 
+  onDelete,
   ...props }){
-  return <button {...props} className={`${className}`} onClick={() => triggerWarning(entityId, type, setLoading)}>{children}</button>
+  return <button {...props} className={`${className}`} onClick={() => triggerWarning({id: entityId, type, setLoading, onDelete})}>{children}</button>
 }

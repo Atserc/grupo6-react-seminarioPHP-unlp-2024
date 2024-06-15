@@ -1,9 +1,10 @@
 import Swal from 'sweetalert2';
 import { deleteData, sendData} from '../../../utils/requests'
 
-export default async function AlertaConfirmacionBorrado(mensaje, type, id, setLoading) {
+export default async function AlertaConfirmacionBorrado({mensaje, mensajeRes, type, id, setLoading, onDelete}) {
+  console.log(mensaje, type, id, setLoading, 'HOL')
   const result = await Swal.fire({
-    title: "Esta seguro que desea borrar?",
+    title: 'Está seguro?',
     text: mensaje,
     icon: "warning",
     showCancelButton: true,
@@ -22,7 +23,8 @@ export default async function AlertaConfirmacionBorrado(mensaje, type, id, setLo
             Swal.showLoading();
           }
         });
-        const payload = await sendData({link: `${type}/${id}`, id, setLoading: setLoading, method: 'DELETE'});
+        console.log('HOLA', mensaje, type, setLoading);
+        const payload = await sendData({link: `${type}/${id}`, setLoading, method: 'DELETE'});
         // const payload = await deleteData({link: `${type}/${id}`, id, setLoading: setLoading});
         console.log(payload)
         Swal.fire({
@@ -30,6 +32,9 @@ export default async function AlertaConfirmacionBorrado(mensaje, type, id, setLo
           text: payload.error ? payload.error : payload.data,
           icon: payload.error ? "error" : 'success'
         });
+        if (onDelete) {
+          onDelete(id);
+        }
       } catch (error) {
         Swal.fire({
           title: "Error",

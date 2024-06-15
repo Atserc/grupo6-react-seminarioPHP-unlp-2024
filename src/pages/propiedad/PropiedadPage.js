@@ -3,7 +3,7 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function showData(data, localidades, tipoPropiedades, setLoading) {
+function showData(data, localidades, tipoPropiedades, setLoading, refreshData) {
   return (
     <div className="relative">
       <GridDiv>
@@ -30,7 +30,7 @@ function showData(data, localidades, tipoPropiedades, setLoading) {
               <EditRedirectButton>
                 <Link to={`/propiedades/editar/${propiedad.id}`}> Editar </Link>
               </EditRedirectButton>              
-              <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading}>Eliminar</DeleteButton>
+              <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>
         )})}
@@ -57,9 +57,26 @@ function PropiedadPage() {
         getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
       }, []);
 
+
+  const refreshData = (deleteId) => {
+    console.log(deleteId)
+    // setLoadingLocalidades(true);
+    // setLoadingPropiedades(true);
+    // setLoadingTipoPropiedades(true);
+    // getData({ link: 'localidades', setData: setLocalidades, setLoading: setLoadingLocalidades });
+    // getData({ link: 'propiedades', setData: setPropiedades, setLoading: setLoadingPropiedades });
+    // getData({ link: 'tipos_propiedad', setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades });
+    setPropiedades(propiedades => propiedades.filter(propiedad => propiedad.id !== deleteId));
+  };
+
+
+  useEffect((deleteId) => {
+    refreshData(deleteId);
+  }, []);
+
   return (
     <div>
-      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete)}
+      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData)}
     </div>
   )
 }

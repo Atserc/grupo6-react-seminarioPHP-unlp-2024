@@ -1,6 +1,7 @@
 import { BASE_URL } from '../../../constants'
 
-export default async function sendData({link, data, setLoading, method = 'POST', setData = null}) {
+export default async function sendData({link, data = null, setLoading, method = 'POST', setData = null}) {
+  console.log(`${BASE_URL}${link}`,' URL')
   try {
     const response = await fetch(`${BASE_URL}${link}`, {
       method: method,
@@ -8,11 +9,10 @@ export default async function sendData({link, data, setLoading, method = 'POST',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-      })
-      console.log(response)
-      if (!response.ok) {
+    })
+    if (!response.ok) {
       let res = await response.json();
-      console.log(res, 'hla')
+      console.log(res, 'HOLA')
       if (setData){
         setData(res);
       }
@@ -22,7 +22,8 @@ export default async function sendData({link, data, setLoading, method = 'POST',
 
     // Intentar convertir la respuesta a JSON
     const responseData = await response.json();
-    setData(responseData);
+    console.log(responseData, 'HOLA')
+    //setData(responseData);
     return responseData;
     // .then(response => response.json())
     // .then((payload) => {

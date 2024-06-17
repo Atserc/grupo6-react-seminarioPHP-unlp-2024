@@ -97,7 +97,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
             {response && response?.error?.disponibilidad ? <p>{response.error.disponibilidad}</p> : ''}
           </div>
           <StyledInput onChange={handleChange} name="domicilio" id="domicilio" label="Domicilio:" value={formData.domicilio} type="text"/>
-          <StyledInput onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad} placeholder="YYYY-DD-MM" type="text"/>
+          <StyledInput onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad} placeholder="YYYY-MM-DD" type="text"/>
           {response && response?.error?.inicioDisponibilidad ? <p>{response.error.inicioDisponibilidad}</p> : ''}
           {/* no se q onda la imagen*/}
           <label htmlFor="imagenURL" className="block text-sm font-medium text-gray-700">Imagen:</label>

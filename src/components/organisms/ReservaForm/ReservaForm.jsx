@@ -51,10 +51,6 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
         <h1 className="text-3xl font-bold mb-6 text-center">{titleMessage}</h1>
         <form className="grid grid-cols-1 gap-6">
           <div className="grid grid-cols-2 gap-4 items-center">
-            <div className="flex flex-col">
-            {reserva ? <StyledInput  onChange={handleChange} name="valor_total" id="valor_total" label="Precio Reserva" value={formData.valor_total} type="number"/> : ''}
-          
-            </div>
             <div className="flex-flex-col">
             {response && response?.error?.noches ? <p>{response.error.noches}</p> : ''}
            <StyledInput  onChange={handleChange} name="cantidad_noches" id="cantidad_noches" label="Cantidad Noches" value={formData.cantidad_noches} type="number"/>

@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner, FilterForm } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function showData(data, localidades, tipoPropiedades, setLoading, refreshData) {
+function applyFilter(setLoadingPropiedades,setPropiedades,queryParams){
+  /*setLoadingPropiedades(false);
+  const newLink = 'propiedades'+queryParams;
+  getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
+  setLoadingPropiedades(true);*/
+  console.log(queryParams);
+}
+
+function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setQueryParams) {
   return (
     <div className="relative">
+      <FilterForm propiedad={data} localidades={localidades} setQueryparams={setQueryParams} />
       <GridDiv>
         {data.map((propiedad) => {
           const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
@@ -50,13 +59,17 @@ function PropiedadPage() {
   const [loadingPropiedades, setLoadingPropiedades] = useState(true);
   const [loadingLocalidades, setLoadingLocalidades] = useState(true);
   const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
+  const [queryParams,setQueryParams] = useState("");
 
   useEffect(() => {
-        getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
-        getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
-        getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
-      }, []);
+    getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
+    getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
+    getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
+  }, []);
 
+  useEffect(() => {
+    applyFilter(setLoadingPropiedades,setPropiedades,queryParams);
+  }, [queryParams]);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
@@ -76,7 +89,7 @@ function PropiedadPage() {
 
   return (
     <div>
-      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData)}
+      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setQueryParams)}
     </div>
   )
 }

@@ -40,5 +40,14 @@ export default function StyledSelect({
       ))}
     </select>
     </>
+  ) : (entityType==='disponibilidad') ? (
+    <>
+    <label htmlFor="select" className={labelClass}>{label}</label>
+    <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
+      {options.map((el, i) => (
+       <option key={i} value={el}>{el}</option>
+      ))}
+      </select>
+    </>
   ):''}</>
-}
+} 

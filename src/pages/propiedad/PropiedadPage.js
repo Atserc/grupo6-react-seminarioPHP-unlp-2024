@@ -3,18 +3,48 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner, FilterForm } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function applyFilter(setLoadingPropiedades,setPropiedades,queryParams){
-  /*setLoadingPropiedades(false);
-  const newLink = 'propiedades'+queryParams;
+function applyFilter(setLoadingPropiedades, setPropiedades, filtros) {
+  setLoadingPropiedades(false);
+  let newLink = 'propiedades';
+  const params = [];
+
+  if (filtros.cantidad_huespedes !== "") {
+    params.push(`cantidad_huespedes=${filtros.cantidad_huespedes}`);
+  }
+  if (filtros.fecha_inicio_disponibilidad !== "") {
+    params.push(`fecha_inicio_disponibilidad=${filtros.fecha_inicio_disponibilidad}`);
+  }
+  if (filtros.disponible !== "") {
+    switch (filtros.disponible) {
+      case "Disponible":
+        params.push(`disponible=1`);
+        break;
+      case "No disponible":
+        params.push(`disponible=0`);
+        break;
+      case "Cualquiera":
+        break;
+  }
+}
+  if (filtros.localidad_id !== "") {
+    params.push(`localidad_id=${filtros.localidad_id}`);
+  }
+
+  if (params.length > 0) {
+    newLink += `?${params.join('&')}`;
+  }
+
+  console.log(filtros);
+  console.log(newLink);
   getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
-  setLoadingPropiedades(true);*/
-  console.log(queryParams);
+  
+  setLoadingPropiedades(true);
 }
 
-function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setQueryParams) {
+function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setFiltros) {
   return (
     <div className="relative">
-      <FilterForm propiedad={data} localidades={localidades} setQueryparams={setQueryParams} />
+      <FilterForm localidades={localidades} setFiltros={setFiltros} />
       <GridDiv>
         {data.map((propiedad) => {
           const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
@@ -38,7 +68,7 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
             <div className="flex items-center justify-between">
               <EditRedirectButton>
                 <Link to={`/propiedades/editar/${propiedad.id}`}> Editar </Link>
-              </EditRedirectButton>              
+              </EditRedirectButton>          
               <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>
@@ -59,7 +89,7 @@ function PropiedadPage() {
   const [loadingPropiedades, setLoadingPropiedades] = useState(true);
   const [loadingLocalidades, setLoadingLocalidades] = useState(true);
   const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
-  const [queryParams,setQueryParams] = useState("");
+  const [filtros,setFiltros] = useState("");
 
   useEffect(() => {
     getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
@@ -68,8 +98,8 @@ function PropiedadPage() {
   }, []);
 
   useEffect(() => {
-    applyFilter(setLoadingPropiedades,setPropiedades,queryParams);
-  }, [queryParams]);
+    applyFilter(setLoadingPropiedades,setPropiedades,filtros);
+  }, [filtros]);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
@@ -89,7 +119,7 @@ function PropiedadPage() {
 
   return (
     <div>
-      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setQueryParams)}
+      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
     </div>
   )
 }

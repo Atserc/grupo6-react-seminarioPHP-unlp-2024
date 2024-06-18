@@ -28,7 +28,9 @@ function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading
               <p>Precio: ${reserva.valor_total}</p>
             </div>
             <div className="flex justify-between">
-              <EditRedirectButton href={`/reservas/editar/${reserva.id}`}>Editar</EditRedirectButton>
+              <EditRedirectButton>
+                <Link to={`/propiedades/editar/${reserva.id}`}> Editar </Link>
+              </EditRedirectButton>
               <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>

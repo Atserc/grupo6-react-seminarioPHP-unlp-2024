@@ -1,41 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { StyledInput, StyledSelect, SubmitButton } from '../../organisms';
+import React, { useState } from 'react';
+import { ClearButton, StyledInput, StyledSelect, SubmitButton } from '../../organisms';
 
-export default function FilterForm({ propiedad = null, localidades, setQueryParams }) {
+export default function FilterForm({ localidades, setFiltros }) {
   const [formData, setFormData] = useState({
     cantidad_huespedes: '',
     fecha_inicio_disponibilidad: '',
-    disponible: false,
+    disponible: '',
     localidad_id: ''
   });
 
-  useEffect(() => {
-    if (propiedad) {
-      setFormData({
-        ...formData,
-        cantidad_huespedes: propiedad.cantidad_huespedes || '',
-        fecha_inicio_disponibilidad: propiedad.fecha_inicio_disponibilidad || '',
-        disponible: propiedad.disponible === 1,
-        localidad_id: propiedad.localidad_id || ''
-      });
-    }
-  }, [propiedad]);
-
+  const clearFilters = () => {
+    setFormData({
+      cantidad_huespedes: '',
+      fecha_inicio_disponibilidad: '',
+      disponible: '',
+      localidad_id: ''
+    });
+  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({
       ...prevFormData,
       [name]: name === 'cantidad_huespedes' || name === 'localidad_id'
         ? Number(value)
-        : name === 'disponible'
-          ? e.target.checked
-          : value
+        : value
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setQueryParams(formData);
+    setFiltros(formData);
   };
 
   return (
@@ -49,7 +44,7 @@ export default function FilterForm({ propiedad = null, localidades, setQueryPara
         type="number"
         className="flex-grow" 
       />
-      <div className="flex items-center space-x-2">
+      {/*<div className="flex items-center space-x-2">
         <label htmlFor="disponible" className="text-sm font-medium text-gray-700">Disponible:</label>
         <input 
           onChange={handleChange} 
@@ -59,7 +54,20 @@ export default function FilterForm({ propiedad = null, localidades, setQueryPara
           checked={formData.disponible} 
           className="h-5 w-5" 
         />
-      </div>
+      </div>*/}
+
+      <StyledSelect 
+        onChange={handleChange} 
+        selectedIdOption={formData.disponible || ''}
+        options={["Cualquiera","Disponible","No disponible"]} 
+        entityType="disponibilidad" 
+        name="disponible" 
+        label="Disponibilidad: " 
+        id="disponible" 
+        placeholder="Seleccione la disponibilidad"
+        className="flex-grow"
+      />
+
       <StyledInput 
         onChange={handleChange} 
         name="fecha_inicio_disponibilidad" 
@@ -81,11 +89,16 @@ export default function FilterForm({ propiedad = null, localidades, setQueryPara
         placeholder="Seleccione una localidad"
         className="flex-grow"
       />
-      <div className='flex justify-center items-center flex-grow'>
+      <div className='flex justify-center items-center flex-grow gap-3'>
         <SubmitButton 
           onClick={handleSubmit} 
           text="Filtrar"
           className="bg-gray-700 text-white p-2 rounded-md"
+        />
+
+        <ClearButton
+          onClick={clearFilters}
+          text="Borrar Filtros"
         />
       </div>
     </form>

@@ -9,20 +9,16 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
   let newLink = 'propiedades';
   const params = [];
 
-  const fechaValida = true// Validate(filtros.fecha_inicio_disponibilidad,"fecha",message,setMessage);
-  const cantHValida = true// Validate(filtros.cantidad_huespedes,"numero",message,setMessage);
+  const fechaValida = true //Validate(filtros.fecha_inicio_disponibilidad,"fecha",message,setMessage);
+  const cantHValida = true //Validate(filtros.cantidad_huespedes,"numero",message,setMessage);
+  const localidadValida = true //Validate(filtros.localidad_id,"localidad",message,setMessage);
 
-  // falla si pongo una localidad que no tiene propiedades asociadas
-
-  if ((filtros.cantidad_huespedes !== "") && (cantHValida)) {
+  if (filtros.cantidad_huespedes !== "") {
     params.push(`cantidad_huespedes=${filtros.cantidad_huespedes}`);
-  } else if (!cantHValida)  {
-    alert(message)
   }
-  if ((filtros.fecha_inicio_disponibilidad !== "") && (fechaValida)) {
+
+  if (filtros.fecha_inicio_disponibilidad !== "") {
     params.push(`fecha_inicio_disponibilidad=${filtros.fecha_inicio_disponibilidad}`);
-  } else if (!fechaValida)  {
-    alert(message)
   }
 
   if (filtros.disponible !== "") {
@@ -37,6 +33,7 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
         break;
   }
 }
+  // falla si pongo una localidad que no tiene propiedades asociadas
   if (filtros.localidad_id !== "") {
     params.push(`localidad_id=${filtros.localidad_id}`);
   }
@@ -58,30 +55,38 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
         {data.map((propiedad) => {
           const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
           const localidad = localidades.find(loc => loc.id === propiedad.localidad_id);
-          return(
-          <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
-            <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
-            <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" />
-            <div className="mb-4 text-sm">
-              <p>Cantidad de habitaciones: {propiedad.cantidad_habitaciones}</p>
-              <p>Cantidad de huespedes: {propiedad.cantidad_huespedes}</p>
-              <p>Cantidad de baños: {propiedad.cantidad_banios}</p>
-              <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
-              <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p>
-              <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
-              <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p>
-              <p>Valor por noche: ${propiedad.valor_noche}</p>
-              <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
-              <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
+          return (
+            <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
+              <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
+              <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" />
+              <div className="mb-4 text-sm">
+                <p>Cantidad de habitaciones: {propiedad.cantidad_habitaciones}</p>
+                <p>Cantidad de huespedes: {propiedad.cantidad_huespedes}</p>
+                <p>Cantidad de baños: {propiedad.cantidad_banios}</p>
+                <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
+                <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p>
+                <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
+                <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p>
+                <p>Valor por noche: ${propiedad.valor_noche}</p>
+                <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
+                <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
+              </div>
+              <div className="flex items-center justify-between">
+                <Link to={`/propiedades/detalles/${propiedad.id}`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                  Detalles
+                </Link>
+                <div className="flex gap-2">
+                  <EditRedirectButton>
+                    <Link to={`/propiedades/editar/${propiedad.id}`}>Editar</Link>
+                  </EditRedirectButton>
+                  <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>
+                    Eliminar
+                  </DeleteButton>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <EditRedirectButton>
-                <Link to={`/propiedades/editar/${propiedad.id}`}> Editar </Link>
-              </EditRedirectButton>          
-              <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
-            </div>
-          </div>
-        )})}
+          );
+        })}
       </GridDiv>
       <AddButton>
         <Link to='/propiedades/crear'> Agregar </Link>

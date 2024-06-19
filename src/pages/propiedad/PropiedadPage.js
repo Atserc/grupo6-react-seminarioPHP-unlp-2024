@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
+import { Validate } from '../../utils/';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner, FilterForm } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function applyFilter(setLoadingPropiedades, setPropiedades, filtros) {
+function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setMessage) {
   setLoadingPropiedades(false);
   let newLink = 'propiedades';
   const params = [];
 
-  if (filtros.cantidad_huespedes !== "") {
+  const fechaValida = true// Validate(filtros.fecha_inicio_disponibilidad,"fecha",message,setMessage);
+  const cantHValida = true// Validate(filtros.cantidad_huespedes,"numero",message,setMessage);
+
+  // falla si pongo una localidad que no tiene propiedades asociadas
+
+  if ((filtros.cantidad_huespedes !== "") && (cantHValida)) {
     params.push(`cantidad_huespedes=${filtros.cantidad_huespedes}`);
+  } else if (!cantHValida)  {
+    alert(message)
   }
-  if (filtros.fecha_inicio_disponibilidad !== "") {
+  if ((filtros.fecha_inicio_disponibilidad !== "") && (fechaValida)) {
     params.push(`fecha_inicio_disponibilidad=${filtros.fecha_inicio_disponibilidad}`);
+  } else if (!fechaValida)  {
+    alert(message)
   }
+
   if (filtros.disponible !== "") {
     switch (filtros.disponible) {
       case "Disponible":
@@ -22,7 +33,7 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros) {
       case "No disponible":
         params.push(`disponible=0`);
         break;
-      case "Cualquiera":
+      default:
         break;
   }
 }
@@ -34,8 +45,6 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros) {
     newLink += `?${params.join('&')}`;
   }
 
-  console.log(filtros);
-  console.log(newLink);
   getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
   
   setLoadingPropiedades(true);
@@ -90,6 +99,7 @@ function PropiedadPage() {
   const [loadingLocalidades, setLoadingLocalidades] = useState(true);
   const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
   const [filtros,setFiltros] = useState("");
+  const [message, setMessage] = useState("Filtros invalidos debido a");
 
   useEffect(() => {
     getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
@@ -98,8 +108,8 @@ function PropiedadPage() {
   }, []);
 
   useEffect(() => {
-    applyFilter(setLoadingPropiedades,setPropiedades,filtros);
-  }, [filtros]);
+    applyFilter(setLoadingPropiedades,setPropiedades,filtros,message,setMessage);
+  }, [filtros,message]);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)

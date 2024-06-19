@@ -43,16 +43,16 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
   }
 
   getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
-  
   setLoadingPropiedades(true);
 }
 
 function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setFiltros) {
+  console.log(data);
   return (
     <div className="relative">
       <FilterForm localidades={localidades} setFiltros={setFiltros} />
       <GridDiv>
-        {data.map((propiedad) => {
+        {Array.isArray(data) ? (data.map((propiedad) => {
           const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
           const localidad = localidades.find(loc => loc.id === propiedad.localidad_id);
           return (
@@ -85,11 +85,10 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
                 </div>
               </div>
             </div>
-          );
-        })}
+        )})):(<p>{data}</p>)}
       </GridDiv>
       <AddButton>
-        <Link to='/propiedades/crear'> Agregar </Link>
+        <Link to='/propiedades/crear'>Agregar</Link>
       </AddButton>
     </div>
   )

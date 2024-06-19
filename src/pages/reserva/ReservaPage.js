@@ -4,7 +4,7 @@ import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner} f
 import { Link } from 'react-router-dom';
 
 function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading, refreshData}) {
-  console.log(data, propiedades, inquilinos, setLoading, 'HOLA');
+  //console.log(data, propiedades, inquilinos, setLoading);
 
   // No sé que hacen pero funcionan (ofrecen un array donde muestran nombre en vez de id con la prop id de la reserva.)
   const propiedadMap = propiedades.reduce((acc, propiedad) => {
@@ -20,7 +20,7 @@ function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading
     <div className="relative">
       <GridDiv>
         {data.map((reserva) => (
-          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
+          <div key={reserva.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
             <h2 className="text-xl font-bold mb-2">{propiedadMap[reserva.propiedad_id]} | Por: {inquilinoMap[reserva.inquilino_id]}</h2>
             <div className="mb-4 text-sm">
               <p>Fecha: {reserva.fecha_desde}</p>

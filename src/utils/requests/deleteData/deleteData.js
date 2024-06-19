@@ -16,19 +16,22 @@
 
 import { BASE_URL } from '../../../constants'
 
-async function deleteData({link, id, setLoading, method = 'DELETE'}) {
+async function deleteData({link, setLoading, method = 'DELETE'}) {
+  console.log(link)
   try { 
-    const response = await fetch(`${BASE_URL}${link}/${id}`, {
+    const response = await fetch(`${BASE_URL}${link}`, {
      method: method
    })
    if (!response.ok) {
-    console.log(response)
+    // console.log(response)
     let res = await response.json();
-    
+    console.error(res)
     return res;
-   }
-   const responseData = await response.json();
+   } else {
+    const responseData = await response.json();
+    console.log(responseData)
     return responseData;
+   }
   } catch(error) {
     console.log(error)
     return error

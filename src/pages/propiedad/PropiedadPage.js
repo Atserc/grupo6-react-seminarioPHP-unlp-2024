@@ -47,7 +47,7 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
 }
 
 function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setFiltros) {
-  console.log(data);
+  console.log('RENDERICÉ');
   return (
     <div className="relative">
       <FilterForm localidades={localidades} setFiltros={setFiltros} />
@@ -103,13 +103,13 @@ function PropiedadPage() {
   const [loadingLocalidades, setLoadingLocalidades] = useState(true);
   const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
   const [filtros,setFiltros] = useState("");
-  const [message, setMessage] = useState("Filtros invalidos debido a");
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
-    getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
-    getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
-  }, []);
+      getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
+      getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
+      getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
+      }, []);
 
   useEffect(() => {
     applyFilter(setLoadingPropiedades,setPropiedades,filtros,message,setMessage);
@@ -117,23 +117,12 @@ function PropiedadPage() {
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
-    // setLoadingLocalidades(true);
-    // setLoadingPropiedades(true);
-    // setLoadingTipoPropiedades(true);
-    // getData({ link: 'localidades', setData: setLocalidades, setLoading: setLoadingLocalidades });
-    // getData({ link: 'propiedades', setData: setPropiedades, setLoading: setLoadingPropiedades });
-    // getData({ link: 'tipos_propiedad', setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades });
     setPropiedades(propiedades => propiedades.filter(propiedad => propiedad.id !== deleteId));
   };
 
-
-  useEffect((deleteId) => {
-    refreshData(deleteId);
-  }, []);
-
   return (
     <div>
-      {(loadingPropiedades && loadingTipoPropiedades && loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
+      {(loadingPropiedades || loadingTipoPropiedades || loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
     </div>
   )
 }

@@ -8,5 +8,5 @@ export default function getData({link, setData, setLoading = null, method = 'GET
       setData(payload["data"])
     })
     .catch(error => console.log(error))
-    .finally(() => setLoading(false));
+    .finally(() => setLoading !== null ? setLoading(false) : null);
 }

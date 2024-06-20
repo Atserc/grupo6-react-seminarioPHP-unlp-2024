@@ -50,7 +50,6 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
   console.log('RENDERICÉ');
   return (
     <div className="relative">
-      <FilterForm localidades={localidades} setFiltros={setFiltros} />
       <GridDiv>
         {Array.isArray(data) ? (data.map((propiedad) => {
           const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
@@ -58,18 +57,18 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
           return (
             <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
               <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
-              <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" />
+              {/* <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-4" /> */}
               <div className="mb-4 text-sm">
-                <p>Cantidad de habitaciones: {propiedad.cantidad_habitaciones}</p>
+                {/* <p>Cantidad de habitaciones: {propiedad.cantidad_habitaciones}</p> */}
                 <p>Cantidad de huespedes: {propiedad.cantidad_huespedes}</p>
-                <p>Cantidad de baños: {propiedad.cantidad_banios}</p>
-                <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
-                <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p>
+                {/* <p>Cantidad de baños: {propiedad.cantidad_banios}</p> */}
+                {/* <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p> */}
+                {/* <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p> */}
                 <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
-                <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p>
+                {/* <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p> */}
                 <p>Valor por noche: ${propiedad.valor_noche}</p>
-                <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
-                <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
+                {/* <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
+                <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p> */}
               </div>
               <div className="flex items-center justify-between">
                 <Link to={`/propiedades/detalles/${propiedad.id}`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
@@ -79,7 +78,7 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
                   <EditRedirectButton>
                     <Link to={`/propiedades/editar/${propiedad.id}`}>Editar</Link>
                   </EditRedirectButton>
-                  <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>
+                  <DeleteButton entityId={propiedad.id} type="propiedad" setLoading={setLoading} onDelete={refreshData}>
                     Eliminar
                   </DeleteButton>
                 </div>
@@ -122,6 +121,7 @@ function PropiedadPage() {
 
   return (
     <div>
+      <FilterForm localidades={localidades} setFiltros={setFiltros} />
       {(loadingPropiedades || loadingTipoPropiedades || loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
     </div>
   )

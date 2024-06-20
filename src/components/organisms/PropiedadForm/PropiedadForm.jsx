@@ -1,4 +1,5 @@
 import React from 'react'
+import Swal from 'sweetalert2';
 import { sendData } from '../../../utils/requests';
 import { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
@@ -68,7 +69,15 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
       if (res.code != 200 && res.code != 201) {
         setMessage(propiedad ? 'No se pudo actualizar' : 'No se pudo crear');
       } else {
-        setMessage(propiedad ? 'Propiedad actualizada' : 'Propiedad creada');
+        // setMessage(propiedad ? 'Propiedad actualizada' : 'Propiedad creada');
+          Swal.fire({
+            title: '¡Listo!',
+            text: propiedad ? 'Propiedad actualizada con éxito' : 'Propiedad creada con éxito',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          }).then(() => {
+            window.location.href = '/';
+          });
       }
     } catch (error) {
       console.log(error)

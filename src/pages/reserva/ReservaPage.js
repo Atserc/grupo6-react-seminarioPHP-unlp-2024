@@ -36,9 +36,6 @@ function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading
           </div>
         ))}
       </GridDiv>
-      <AddButton>
-        <Link to='/reservas/crear'>Agregar</Link>
-      </AddButton>
     </div>
   )
 }
@@ -75,6 +72,12 @@ function ReservaPage() {
 
   return (
     <div>
+        <div className="bg-slate-200 flex gap-3 p-2">
+          <p>Acciones: </p>
+          <AddButton>
+            <Link to='/reservas/crear'>Agregar Reserva</Link>
+          </AddButton>
+        </div>
         {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData({data: reservas, setLoadingReservas, setLoading, propiedades, inquilinos, setLoading, refreshData})}
     </div>
   )

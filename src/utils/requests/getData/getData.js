@@ -5,6 +5,7 @@ export default function getData({link, setData, setLoading = null, method = 'GET
     })
     .then(response => response.json())
     .then((payload) => {
+      console.log(payload)
       setData(payload["data"])
     })
     .catch(error => console.log(error))

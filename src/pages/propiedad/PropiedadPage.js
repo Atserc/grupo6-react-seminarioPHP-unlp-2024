@@ -64,7 +64,7 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
                 {/* <p>Cantidad de baños: {propiedad.cantidad_banios}</p> */}
                 {/* <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p> */}
                 {/* <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p> */}
-                <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
+                <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "Ya está ocupada."}</p>
                 {/* <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p> */}
                 <p>Valor por noche: ${propiedad.valor_noche}</p>
                 {/* <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>

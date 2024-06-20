@@ -42,7 +42,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         label="Cantidad de Huéspedes:" 
         value={formData.cantidad_huespedes || ''} 
         type="number"
-        className="flex-grow" 
+        className="w-[75px]" 
       />
       {/*<div className="flex items-center space-x-2">
         <label htmlFor="disponible" className="text-sm font-medium text-gray-700">Disponible:</label>
@@ -65,7 +65,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         label="Disponibilidad: " 
         id="disponible" 
         placeholder="Seleccione la disponibilidad"
-        className="flex-grow"
+        className="w-[100px] text-xs"
       />
 
       <StyledInput 
@@ -76,7 +76,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         value={formData.fecha_inicio_disponibilidad || ''} 
         placeholder="YYYY-MM-DD" 
         type="text"
-        className="flex-grow"
+        className="w-[125px] text-sm outline-none focus:border-0 rounded-md px-1"
       />
       <StyledSelect 
         onChange={handleChange} 
@@ -87,18 +87,17 @@ export default function FilterForm({ localidades, setFiltros }) {
         label="Seleccionar localidad" 
         id="localidad_id" 
         placeholder="Seleccione una localidad"
-        className="flex-grow"
+        className="flex-grow rounded-md px-1 text-sm"
       />
       <div className='flex justify-center items-center flex-grow gap-3'>
-        <SubmitButton 
-          onClick={handleSubmit} 
-          text="Filtrar"
-          className="bg-gray-700 text-white p-2 rounded-md"
-        />
-
         <ClearButton
           onClick={clearFilters}
           text="Borrar Filtros"
+        />
+        <SubmitButton 
+          onClick={handleSubmit} 
+          text="Filtrar"
+          className="bg-white text-zinc-900 hover:bg-green-600 transition hover:text-white hover:shadow-lg px-3 py-1 text-sm rounded-md"
         />
       </div>
     </form>

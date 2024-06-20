@@ -86,9 +86,6 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
             </div>
         )})):(<p>{data}</p>)}
       </GridDiv>
-      <AddButton>
-        <Link to='/propiedades/crear'>Agregar</Link>
-      </AddButton>
     </div>
   )
 }
@@ -121,6 +118,12 @@ function PropiedadPage() {
 
   return (
     <div>
+      <div className="bg-slate-200 flex gap-3 p-2">
+          <p>Acciones: </p>
+          <AddButton>
+            <Link to='/propiedades/crear'>Agregar Propiedad</Link>
+          </AddButton>
+        </div>
       <FilterForm localidades={localidades} setFiltros={setFiltros} />
       {(loadingPropiedades || loadingTipoPropiedades || loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
     </div>

@@ -21,9 +21,6 @@ function showData(data, setLoading) {
           </div>
         ))}
       </GridDiv>
-      <AddButton>
-        <Link to='/tipo-propiedades/crear'> Agregar </Link>
-      </AddButton>
     </div>
   );
 }
@@ -38,6 +35,12 @@ function TipoPropiedadPage() {
 
   return (
     <div>
+      <div className="bg-slate-200 flex gap-3 p-2">
+          <p>Acciones: </p>
+          <AddButton>
+            <Link to='/tipo-propiedades/crear'>Agregar Tipo de Propiedad</Link>
+          </AddButton>
+        </div>
       {loading ? <LoadingSpinner /> : showData(tipoPropiedades, setLoading)}
     </div>
   );

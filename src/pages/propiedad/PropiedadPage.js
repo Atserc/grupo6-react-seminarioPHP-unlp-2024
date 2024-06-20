@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { validate, validateEmpty } from '../../utils/';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner, FilterForm } from '../../components/organisms'
+import { validateEmpty } from '../../utils/';
+import { GridDiv, EditRedirectButton, DeleteButton, LoadingSpinner, FilterForm, Actions } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
 function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setMessage) {
-  setLoadingPropiedades(false);
   let newLink = 'propiedades';
   const params = [];
-
-  const fechaValida = validate(filtros.fecha_inicio_disponibilidad,"fecha");
-  console.log(fechaValida);
-  const cantHValida = validate(filtros.cantidad_huespedes,"numero");
-  console.log(cantHValida);
 
   if (validateEmpty(filtros.cantidad_huespedes)) {
     params.push(`cantidad_huespedes=${filtros.cantidad_huespedes}`);
   }
-
   if (validateEmpty(filtros.fecha_inicio_disponibilidad)) {
     params.push(`fecha_inicio_disponibilidad=${filtros.fecha_inicio_disponibilidad}`);
   }
-
   if (validateEmpty(filtros.disponible)) {
     switch (filtros.disponible) {
       case "Disponible":
@@ -32,19 +24,16 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
         break;
       default:
         break;
+   }
   }
-}
-
-if (validateEmpty(filtros.localidad_id)) {
+  if (validateEmpty(filtros.localidad_id)) {
     params.push(`localidad_id=${filtros.localidad_id}`);
   }
-
   if (params.length > 0) {
     newLink += `?${params.join('&')}`;
   }
 
   getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
-  setLoadingPropiedades(true);
 }
 
 function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setFiltros) {
@@ -119,14 +108,9 @@ function PropiedadPage() {
 
   return (
     <div>
-      <div className="bg-slate-200 flex gap-3 p-2">
-          <p>Acciones: </p>
-          <AddButton>
-            <Link to='/propiedades/crear'>Agregar Propiedad</Link>
-          </AddButton>
-        </div>
+      <Actions link='propiedades' label='Agregar Propiedad' />
       <FilterForm localidades={localidades} setFiltros={setFiltros} />
-      {(loadingPropiedades || loadingTipoPropiedades || loadingLocalidades) || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
+      {loadingPropiedades || loadingTipoPropiedades || loadingLocalidades || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
     </div>
   )
 }

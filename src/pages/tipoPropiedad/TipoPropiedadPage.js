@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner } from '../../components/organisms';
+import { GridDiv, EditRedirectButton, DeleteButton, LoadingSpinner, Actions } from '../../components/organisms';
 import { Link } from 'react-router-dom';
 
 function showData(data, setLoading) {
@@ -35,12 +35,7 @@ function TipoPropiedadPage() {
 
   return (
     <div>
-      <div className="bg-slate-200 flex gap-3 p-2">
-          <p>Acciones: </p>
-          <AddButton>
-            <Link to='/tipo-propiedades/crear'>Agregar Tipo de Propiedad</Link>
-          </AddButton>
-        </div>
+      <Actions link='tipo-propiedades' label='Agregar Tipo de Propiedad' />
       {loading ? <LoadingSpinner /> : showData(tipoPropiedades, setLoading)}
     </div>
   );

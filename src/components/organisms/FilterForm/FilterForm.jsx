@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { validate, validateEmpty } from '../../../utils';
 import { ClearButton, StyledInput, StyledSelect, SubmitButton } from '../../organisms';
 
 export default function FilterForm({ localidades, setFiltros }) {
@@ -8,6 +9,7 @@ export default function FilterForm({ localidades, setFiltros }) {
     disponible: '',
     localidad_id: ''
   });
+  const [errores, setErrores] = useState({ cantidad_huespedes: '', fecha_inicio_disponibilidad: '' });
 
   const clearFilters = () => {
     setFormData({
@@ -16,6 +18,7 @@ export default function FilterForm({ localidades, setFiltros }) {
       disponible: '',
       localidad_id: ''
     });
+    setErrores({ cantidad_huespedes: '', fecha_inicio_disponibilidad: '' }); // Clear errors on reset
   };
   
   const handleChange = (e) => {
@@ -26,11 +29,56 @@ export default function FilterForm({ localidades, setFiltros }) {
         ? Number(value)
         : value
     }));
+
+    // Clear specific error when the input is changed
+    setErrores(prevErrores => ({
+      ...prevErrores,
+      [name]: '' // Clear the error for the specific input
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFiltros(formData);
+
+    let cumpleA = false;
+    let cumpleB = false;
+
+    if (validateEmpty(formData.cantidad_huespedes)) {
+      if (validate(formData.cantidad_huespedes, 'numero')) {
+        cumpleA = true;
+        setErrores(prevErrores => ({
+          ...prevErrores,
+          cantidad_huespedes: '' // Clear error if valid
+        }));
+      } else {
+        setErrores(prevErrores => ({
+          ...prevErrores,
+          cantidad_huespedes: 'Ingrese un número válido'
+        }));
+      }
+    } else {
+      cumpleA = true;
+    }
+    
+    if (validateEmpty(formData.fecha_inicio_disponibilidad)) {
+      if (validate(formData.fecha_inicio_disponibilidad, 'fecha')) {
+        cumpleB = true;
+        setErrores(prevErrores => ({
+          ...prevErrores,
+          fecha_inicio_disponibilidad: '' // Clear error if valid
+        }));
+      } else {
+        setErrores(prevErrores => ({
+          ...prevErrores,
+          fecha_inicio_disponibilidad: 'Ingrese una fecha válida'
+        }));
+      }
+    } else {
+      cumpleB = true;
+    }
+    if (cumpleA && cumpleB) {
+      setFiltros(formData);
+    }
   };
 
   return (
@@ -100,6 +148,12 @@ export default function FilterForm({ localidades, setFiltros }) {
           className="bg-white text-zinc-900 hover:bg-green-600 transition hover:text-white hover:shadow-lg px-3 py-1 text-sm rounded-md"
         />
       </div>
+      <p className={errores.cantidad_huespedes !== '' ? 'text-red-500' : 'hidden'}>
+        {errores.cantidad_huespedes}
+      </p>
+      <p className={errores.fecha_inicio_disponibilidad !== '' ? 'text-red-500' : 'hidden'}>
+        {errores.fecha_inicio_disponibilidad}
+      </p>
     </form>
   );
 }

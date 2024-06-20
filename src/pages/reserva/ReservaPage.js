@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner} from '../../components/organisms'
+import { GridDiv, EditRedirectButton, DeleteButton, LoadingSpinner, Actions} from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
 function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading, refreshData}) {
@@ -72,12 +72,7 @@ function ReservaPage() {
 
   return (
     <div>
-        <div className="bg-slate-200 flex gap-3 p-2">
-          <p>Acciones: </p>
-          <AddButton>
-            <Link to='/reservas/crear'>Agregar Reserva</Link>
-          </AddButton>
-        </div>
+        <Actions link="reservas" label="Agregar Reserva" />
         {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData({data: reservas, setLoadingReservas, setLoading, propiedades, inquilinos, setLoading, refreshData})}
     </div>
   )

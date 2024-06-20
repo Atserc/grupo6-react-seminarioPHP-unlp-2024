@@ -15,32 +15,35 @@ export const triggerWarning = ({id, type, setLoading, onDelete}) => {
   }
 }
 
-export function Validate(input, tipo, message, setMessage) {
-  if (input === "" || input === null || input === undefined) {
-    setMessage(prevMessages => [...prevMessages, message || "El campo no puede ser vacio"]);
-    return false;
-  }
 
+export function validateEmpty(input) {
+  if (input === "" || input === null || input === undefined) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export function validate(input, tipo) {
   switch (tipo) {
     case "fecha":
       if (!/^\d{4}-\d{2}-\d{2}$/.test(input)) {
-        setMessage(prevMessages => [...prevMessages, "Por favor ingrese la fecha en formato YYYY-MM-DD"]);
         return false;
       }
       return true;
 
     case "numero":
       if (!/^\d+$/.test(input)) {
-        setMessage(prevMessages => [...prevMessages, "Por favor ingrese solo numeros"]);
         return false;
-      } else if (input < 0) {
-        setMessage(prevMessages => [...prevMessages, "Por favor ingrese un numero positivo"]);
+      } else if (Number(input) < 0) {
         return false;
       }
       return true;
-
+    
+    case "string":
+      return true;
+    
     default:
-      setMessage(prevMessages => [...prevMessages, "No es un tipo valido"]);
       return false;
   }
 }

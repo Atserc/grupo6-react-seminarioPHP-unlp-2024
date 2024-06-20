@@ -49,34 +49,35 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
     <div className="flex justify-center items-center min-h-screen py-5">
       <div className="w-full max-w-2xl p-8 bg-gray-200 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">{titleMessage}</h1>
-        <form className="grid grid-cols-1 gap-6">
+        <form  onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
           <div className="grid grid-cols-2 gap-4 items-center">
             <div className="flex-flex-col">
             {response && response?.error?.noches ? <p className="text-red-500">{response.error.noches}</p> : ''}
-           <StyledInput  onChange={handleChange} name="cantidad_noches" id="cantidad_noches" label="Cantidad Noches" value={formData.cantidad_noches} type="number"/>
+           <StyledInput required onChange={handleChange} name="cantidad_noches" id="cantidad_noches" label="Cantidad Noches" value={formData.cantidad_noches} type="number"/>
            
             </div>
             <div className="flex flex-col">
             {response && response?.error?.fechaVacia ? <p className="text-red-500">{response.error.fechaVacia}</p> : ''}
             {response && response?.error?.fecha ? <p className="text-red-500">{response.error.fecha}</p> : ''}
-           <StyledInput  onChange={handleChange} name="fecha_desde" id="fecha_desde" label="Fecha Desde" value={formData.fecha_desde} type="text"/>
+           <StyledInput required onChange={handleChange} name="fecha_desde" id="fecha_desde" label="Fecha Desde" value={formData.fecha_desde} type="text"/>
            
             </div>
             <div className="flex flex-col">
             {response && response?.error?.inquilino ? <p className="text-red-500">{response.error.inquilino}</p> : ''}
-           <StyledSelect  onChange={handleChange} selectedIdOption={formData.inquilino_id} options={inquilinos} entityType="inquilinos" name="inquilino_id" label="Seleccionar Inquilino" id="inquilino_id" placeholder="Seleccione un inquilino" />
+           <StyledSelect required onChange={handleChange} selectedIdOption={formData.inquilino_id} options={inquilinos} entityType="inquilinos" name="inquilino_id" label="Seleccionar Inquilino" id="inquilino_id" placeholder="Seleccione un inquilino" />
           
             </div>
             <div className="flex flex-col">
             {response && response?.error?.propiedad ? <p className="text-red-500">{response.error.propiedad}</p> : ''}
-           <StyledSelect  onChange={handleChange} selectedIdOption={formData.propiedad_id} options={propiedades} entityType="propiedades" name="propiedad_id" label="Seleccionar Propiedad" id="propiedad_id" placeholder="Seleccione una propiedad" />
+           <StyledSelect required onChange={handleChange} selectedIdOption={formData.propiedad_id} options={propiedades} entityType="propiedades" name="propiedad_id" label="Seleccionar Propiedad" id="propiedad_id" placeholder="Seleccione una propiedad" />
         
             </div>
               </div>
           <div className="flex justify-center mt-6">
           <div>{response && response.data ? <p className="text-red-500">{response.data.data}</p> : ''}</div>
           <div className="flex flex-col">
-          <SubmitButton onClick={handleSubmit} text={buttonMessage} />
+          <SubmitButton text={buttonMessage} />
+          {/* <SubmitButton onClick={handleSubmit} text={buttonMessage} /> */}
           {<p className={message === "Confirmando reserva..." || message === "Actualizando reserva..." || message === "Reserva actualizada" || message==="Reserva confirmada" ? 'text-green-500' :"text-red-500"}>{message}</p>}
           {/* {(loading==true)? <p>Por favor, espere...</p>:''} */}
           </div>

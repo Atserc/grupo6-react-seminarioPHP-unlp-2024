@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../utils/requests';
-import { Validate } from '../../utils/';
+import { validate, validateEmpty } from '../../utils/';
 import { GridDiv, EditRedirectButton, DeleteButton, AddButton, LoadingSpinner, FilterForm } from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
@@ -9,19 +9,20 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
   let newLink = 'propiedades';
   const params = [];
 
-  const fechaValida = true //Validate(filtros.fecha_inicio_disponibilidad,"fecha",message,setMessage);
-  const cantHValida = true //Validate(filtros.cantidad_huespedes,"numero",message,setMessage);
-  const localidadValida = true //Validate(filtros.localidad_id,"localidad",message,setMessage);
+  const fechaValida = validate(filtros.fecha_inicio_disponibilidad,"fecha");
+  console.log(fechaValida);
+  const cantHValida = validate(filtros.cantidad_huespedes,"numero");
+  console.log(cantHValida);
 
-  if (filtros.cantidad_huespedes !== "") {
+  if (validateEmpty(filtros.cantidad_huespedes)) {
     params.push(`cantidad_huespedes=${filtros.cantidad_huespedes}`);
   }
 
-  if (filtros.fecha_inicio_disponibilidad !== "") {
+  if (validateEmpty(filtros.fecha_inicio_disponibilidad)) {
     params.push(`fecha_inicio_disponibilidad=${filtros.fecha_inicio_disponibilidad}`);
   }
 
-  if (filtros.disponible !== "") {
+  if (validateEmpty(filtros.disponible)) {
     switch (filtros.disponible) {
       case "Disponible":
         params.push(`disponible=1`);
@@ -33,8 +34,8 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
         break;
   }
 }
-  // falla si pongo una localidad que no tiene propiedades asociadas
-  if (filtros.localidad_id !== "") {
+
+if (validateEmpty(filtros.localidad_id)) {
     params.push(`localidad_id=${filtros.localidad_id}`);
   }
 

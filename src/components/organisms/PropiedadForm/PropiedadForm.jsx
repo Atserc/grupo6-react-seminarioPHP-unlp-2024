@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { validarFormulario } from '../../../utils';
 import { sendData } from '../../../utils/requests';
 import { validarFormulario } from '../../../utils';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
@@ -10,9 +11,9 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
   const [loading, setLoading] = useState()
   const [formData, setFormData] = useState({
     cantidad_banios: 0,
-    cantidad_huespedes: 0,
-    cantidad_habitaciones: 0,
-    cantidad_dias: 0,
+    cantidad_huespedes: "",
+    cantidad_habitaciones: "",
+    cantidad_dias: "",
     domicilio: "",
     fecha_inicio_disponibilidad: "",
     imagen: "",
@@ -59,8 +60,8 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Formulario enviado:', formData);
-    if(validarFormulario(formData, 'propiedad')){
+    //console.log('Formulario enviado:', formData);
+    if (validarFormulario(formData, 'propiedad')) {
       try {
         setLoading(true);
         setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');

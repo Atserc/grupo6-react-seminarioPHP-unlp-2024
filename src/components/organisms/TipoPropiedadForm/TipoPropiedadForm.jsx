@@ -3,6 +3,7 @@ import { LoadingSpinner, StyledInput, SubmitButton } from '../../../components/o
 import { sendData } from '../../../utils/requests';
 import { validateEmpty } from '../../../utils';
 import Swal from 'sweetalert2';
+
 /* EL COMENTARIO DE LA RESPUESTA DE LA REQUEST ANDA, PERO NO SÉ COMO MOSTRAR BIEN LOS MENSAJES.
 SI RETORNA ERROR, SE ACCEDE CON DATA.ERROR, SI RETORNA SUCCESS, POR ALGUNA RAZON RETORNA DIRECTAMENTE,
 Y NO PUEDE RENDERIZAR UN OBJETO NATIVAMENTE. EL TERNARIO ESTÁ PORQUE ANTES LO TRAIA DE OTRA FORMA PERO QUE NO FUNCIONABA
@@ -23,35 +24,40 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
   
   const handleSubmit = async (event, method, link) => {
     event.preventDefault();
-    if(validateEmpty(formData.nombre)){
-setLoading(true);
-    try {
-      let res = await sendData({link, method, data: formData, setLoading: setLoading, setData})
-      if (res.code === 200 || res.code === 201) {
-        Swal.fire({
-          title: '¡Listo!',
-          text: res.data,
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        }).then(() => {
-          window.location.href = '/tipo-propiedades';
-        });
-        setLoading(false);
+    setLoading(true);
+    if (validateEmpty(formData.nombre)) {
+        try {
+        let res = await sendData({link, method, data: formData, setLoading: setLoading, setData})
+        if (res.code === 200 || res.code === 201) {
+          Swal.fire({
+            title: '¡Listo!',
+            text: res.data,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          }).then(() => {
+            window.location.href = '/tipo-propiedades';
+          });
+          setLoading(false);
+        } else {
+          Swal.fire({
+            title: '¡Error!',
+            text: 'No pudo cargarse el tipo de propiedad',
+            icon: 'error',
+            timer : 2000
+          })
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error)
+      }
       } else {
         Swal.fire({
           title: '¡Error!',
-          text: 'No pudo cargarse el tipo de propiedad',
+          text: 'El nombre no puede ser vacio',
           icon: 'error',
-          timer : 2000
+          timer : 1500
         })
-        setLoading(false);
       }
-    } catch (error) {
-      console.log(error)
-    }
-    } else {
-      console.log('formulario invalido');
-    }
   };
 
   function showData(){

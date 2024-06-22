@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 import { sendData } from '../../../utils/requests'
-import { validarFormulario } from '../../../utils'
+import { validarFormulario } from '../../../utils';
 
 export default function ReservaForm({ link, method, reserva = null, inquilinos, propiedades, titleMessage, buttonMessage}) {
   const [loading, setLoading] = useState();
@@ -24,7 +24,7 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name!='fecha_desde' ? Number(value): value,
+      [name]: name!=='fecha_desde' ? Number(value): value,
     });
     console.log(formData);
   };
@@ -32,13 +32,13 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Formulario enviado:', formData);
-    if(validarFormulario(formData, 'reserva')){
+    if (validarFormulario(formData, 'reserva')) {
       try {
         setLoading(true);
         setMessage(reserva ? 'Actualizando reserva...' : 'Confirmando reserva...');
         const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
         console.log(res, 'HOLA')
-        if (res.code != 200) {
+        if (res.code !== 200) {
           setMessage(reserva ? 'No se pudo actualizar' : 'Verificá que el formulario sea correcto.');
         } else {
           setMessage(reserva ? 'Reserva actualizada' : 'Reserva confirmada');

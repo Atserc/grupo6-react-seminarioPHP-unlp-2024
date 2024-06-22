@@ -65,5 +65,8 @@ export function validarFormulario(data, type){
     case 'reserva':
       return validateEmpty(data['propiedad_id']) && validateEmpty(data['inquilino_id']) && validateEmpty(data['fecha_desde']) && validateEmpty(data['cantidad_noches']) 
       && validate(data['cantidad_noches'], 'numero')
+    default:
+      console.log('Fallo de type en validarFormulario');
+      return false;
   }
 }

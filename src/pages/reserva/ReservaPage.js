@@ -65,11 +65,10 @@ function ReservaPage() {
     setReservas(reservas => reservas.filter(reserva => reserva.id !== deleteId));
   };
 
-
-  // useEffect((deleteId) => {
-    // refreshData(deleteId);
-  // }, []);
-
+  /*useEffect((deleteId) => {
+    refreshData(deleteId);
+  }, []);*/
+  
   return (
     <div>
         <Actions link="reservas" label="Agregar Reserva" />

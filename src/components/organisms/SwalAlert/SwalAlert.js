@@ -1,7 +1,14 @@
 import Swal from 'sweetalert2';
 import { deleteData } from '../../../utils/requests'
 
-export default async function AlertaConfirmacionBorrado({mensaje, type, id, setLoading, onDelete, message}) {
+export default async function SwalAlert({type, id, setLoading, onDelete, message}) {
+  let mensaje = "";
+  switch(type){
+    case 'propiedades': mensaje = `Esta seguro de eliminar la propiedad ${id}`; break;
+    case 'reservas': mensaje =`Esta seguro de eliminar la reserva ${id}`; break;
+    case 'tipos_propiedad': mensaje = `Esta seguro de eliminar el tipo de propiedad ${id}`; break;
+    default: console.log("fallo de type en triggerWarning"); break;
+  }
   const result = await Swal.fire({
     title: 'Está seguro?',
     text: mensaje,
@@ -27,7 +34,8 @@ export default async function AlertaConfirmacionBorrado({mensaje, type, id, setL
         Swal.fire({
           title: payload.error ? "Error" : "Borrado!",
           text: payload.error ? payload.error : message,
-          icon: payload.error ? "error" : 'success'
+          icon: payload.error ? "error" : 'success',
+          timer: 2500
         });
         // si hay ondelete, actualizo el frontend filtrando.
         if (onDelete && !payload.error) {

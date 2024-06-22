@@ -1,4 +1,4 @@
-import { triggerWarning } from '../../../utils' 
+import { SwalAlert } from '../'
 
 export default function DeleteButton({
   children, 
@@ -9,5 +9,5 @@ export default function DeleteButton({
   message,
   onDelete,
   ...props }){
-  return <button {...props} className={`${className}`} onClick={() => triggerWarning({id: entityId, type, setLoading, onDelete, message})}>{children}</button>
+  return <button {...props} className={`${className}`} onClick={() => SwalAlert({type, id : entityId, setLoading, onDelete, message})}>{children}</button>
 }

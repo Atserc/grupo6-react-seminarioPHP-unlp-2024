@@ -3,7 +3,7 @@ import { getData } from '../../utils/requests';
 import { GridDiv, EditRedirectButton, DeleteButton, LoadingSpinner, Actions} from '../../components/organisms'
 import { Link } from 'react-router-dom';
 
-function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading, refreshData}) {
+function showData({data, propiedades, inquilinos, setLoadingReservas, refreshData}) {
   //console.log(data, propiedades, inquilinos, setLoading);
 
   // No sé que hacen pero funcionan (ofrecen un array donde muestran nombre en vez de id con la prop id de la reserva.)
@@ -31,7 +31,7 @@ function showData({data, setLoadingReservas, propiedades, inquilinos, setLoading
               <EditRedirectButton>
                 <Link to={`/reservas/editar/${reserva.id}`}> Editar </Link>
               </EditRedirectButton>
-              <DeleteButton entityId={reserva.id} type="reserva" setLoading={setLoading} onDelete={refreshData}>Eliminar</DeleteButton>
+              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoadingReservas} onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>
         ))}
@@ -47,12 +47,12 @@ function ReservaPage() {
   const [loadingReservas, setLoadingReservas] = useState(true);
   const [loadingPropiedades, setLoadingPropiedades] = useState(true)
   const [loadingInquilinos, setLoadingInquilinos] = useState(true)
-  const [loading, setLoading] = useState(false)
+  
   useEffect(() => {
     getData({link:'reservas',setData: setReservas, setLoading: setLoadingReservas})
     getData({link:`propiedades`, setData: setPropiedades, setLoading: setLoadingPropiedades})
     getData({link:`inquilinos`, setData: setInquilinos, setLoading: setLoadingInquilinos})
-  }, []);
+  }, [reservas]);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
@@ -73,7 +73,7 @@ function ReservaPage() {
   return (
     <div>
         <Actions link="reservas" label="Agregar Reserva" />
-        {loadingReservas && loadingPropiedades && loadingInquilinos ? <LoadingSpinner /> : showData({data: reservas, setLoadingReservas, setLoading, propiedades, inquilinos, setLoading, refreshData})}
+        {loadingReservas || loadingPropiedades || loadingInquilinos ? <LoadingSpinner /> : showData({data: reservas, propiedades, inquilinos, setLoadingReservas, refreshData})}
     </div>
   )
 }

@@ -65,7 +65,6 @@ function ReservaPage() {
     setReservas(reservas => reservas.filter(reserva => reserva.id !== deleteId));
   };
 
-
   /*useEffect((deleteId) => {
     refreshData(deleteId);
   }, []);*/

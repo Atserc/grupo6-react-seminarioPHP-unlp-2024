@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { validarFormulario } from '../../../utils';
 import { sendData } from '../../../utils/requests';
+import { validarFormulario } from '../../../utils';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
 export default function PropiedadForm({propiedad = null, localidades, tipoPropiedades, link, method, titleMessage, buttonMessage}) {
@@ -90,7 +91,6 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
     <div className="flex justify-center items-center min-h-screen py-5">
       <div className="w-full max-w-2xl p-8 bg-gray-200 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">{titleMessage}</h1>
-        
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
           <div className="grid grid-cols-2 gap-4">
             {response && response?.error?.baños ? <p>{response.error.baños}</p> : ''}

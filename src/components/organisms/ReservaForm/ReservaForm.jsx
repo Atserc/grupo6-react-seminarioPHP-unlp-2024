@@ -26,6 +26,7 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
       ...formData,
       [name]: name!=='fecha_desde' ? Number(value): value,
     });
+    console.log(formData);
   };
 
   const handleSubmit = async (e) => {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { LoadingSpinner, StyledInput, SubmitButton } from '../../../components/organisms'
 import { sendData } from '../../../utils/requests';
-import Swal from 'sweetalert2';
 import { validateEmpty } from '../../../utils';
+import Swal from 'sweetalert2';
 
 /* EL COMENTARIO DE LA RESPUESTA DE LA REQUEST ANDA, PERO NO SÉ COMO MOSTRAR BIEN LOS MENSAJES.
 SI RETORNA ERROR, SE ACCEDE CON DATA.ERROR, SI RETORNA SUCCESS, POR ALGUNA RAZON RETORNA DIRECTAMENTE,
@@ -49,7 +49,7 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
         }
       } catch (error) {
         console.log(error)
-      } 
+      }
       } else {
         Swal.fire({
           title: '¡Error!',

@@ -9,7 +9,7 @@ function HeaderComponent() {
         <NavLink to={INDEX}>
           <img src={logo} alt="logo" className='h-16'/>
         </NavLink>
-        <h1 className='text-2xl font-bold'> Inmobilaria Alpha Version</h1>
+        <h1 className='text-2xl font-bold'> Inmobilaria 1.0</h1>
         <NavBarComponent />
     </header>
   );

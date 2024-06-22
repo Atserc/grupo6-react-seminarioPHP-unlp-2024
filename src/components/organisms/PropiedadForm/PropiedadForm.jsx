@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { sendData } from '../../../utils/requests';
+import { validarFormulario } from '../../../utils';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
 export default function PropiedadForm({propiedad = null, localidades, tipoPropiedades, link, method, titleMessage, buttonMessage}) {
@@ -8,10 +9,10 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState()
   const [formData, setFormData] = useState({
-    cantidad_banios: "",
-    cantidad_huespedes: "",
-    cantidad_habitaciones: "",
-    cantidad_dias: "",
+    cantidad_banios: 0,
+    cantidad_huespedes: 0,
+    cantidad_habitaciones: 0,
+    cantidad_dias: 0,
     domicilio: "",
     fecha_inicio_disponibilidad: "",
     imagen: "",
@@ -58,26 +59,30 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log('Formulario enviado:', formData);
-    try {
-      setLoading(true);
-      setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
-      const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
-      console.log(res)
-      if (res.code !== 200 && res.code !== 201) {
-        setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
-      } else {
-          Swal.fire({
-            title: '¡Listo!',
-            text: res.data,
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          }).then(() => {
-            window.location.href = '/';
-          });
+    // console.log('Formulario enviado:', formData);
+    if(validarFormulario(formData, 'propiedad')){
+      try {
+        setLoading(true);
+        setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
+        const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
+        console.log(res)
+        if (res.code !== 200 && res.code !== 201) {
+          setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
+        } else {
+            Swal.fire({
+              title: '¡Listo!',
+              text: res.data,
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              window.location.href = '/';
+            });
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      setMessage('El formulario es inválido.')
     }
   };
 
@@ -85,7 +90,6 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
     <div className="flex justify-center items-center min-h-screen py-5">
       <div className="w-full max-w-2xl p-8 bg-gray-200 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">{titleMessage}</h1>
-        
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
           <div className="grid grid-cols-2 gap-4">
             {response && response?.error?.baños ? <p>{response.error.baños}</p> : ''}
@@ -104,7 +108,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
             {response && response?.error?.disponibilidad ? <p>{response.error.disponibilidad}</p> : ''}
           </div>
           <StyledInput required onChange={handleChange} name="domicilio" id="domicilio" label="Domicilio:" value={formData.domicilio} type="text"/>
-          <StyledInput required onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad ?? ""} placeholder="YYYY-MM-DD" type="text"/>
+          <StyledInput required onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad ?? ""} type="date"/>
           {response && response?.error?.inicioDisponibilidad ? <p>{response.error.inicioDisponibilidad}</p> : ''}
           {/* no se q onda la imagen*/}
           <label htmlFor="imagenURL" className="block text-sm font-medium text-gray-700">Imagen:</label>

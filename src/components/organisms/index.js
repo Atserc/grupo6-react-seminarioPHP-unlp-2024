@@ -1,4 +1,4 @@
-export { default as AlertaConfirmacionBorrado } from './SwalAlert'
+export { default as SwalAlert } from './SwalAlert'
 export { default as GridDiv } from './GridDiv'
 export { default as EditButton } from './EditButton'
 export { default as EditRedirectButton } from './EditRedirectButton'

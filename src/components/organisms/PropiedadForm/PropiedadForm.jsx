@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { validarFormulario } from '../../../utils';
 import { sendData } from '../../../utils/requests';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
@@ -8,7 +9,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState()
   const [formData, setFormData] = useState({
-    cantidad_banios: "",
+    cantidad_banios: 0,
     cantidad_huespedes: "",
     cantidad_habitaciones: "",
     cantidad_dias: "",
@@ -59,25 +60,29 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
   const handleSubmit = async (e) => {
     e.preventDefault();
     //console.log('Formulario enviado:', formData);
-    try {
-      setLoading(true);
-      setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
-      const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
-      console.log(res)
-      if (res.code !== 200 && res.code !== 201) {
-        setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
-      } else {
-          Swal.fire({
-            title: '¡Listo!',
-            text: res.data,
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          }).then(() => {
-            window.location.href = '/';
-          });
+    if (validarFormulario(formData, 'propiedad')) {
+      try {
+        setLoading(true);
+        setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
+        const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
+        console.log(res)
+        if (res.code !== 200 && res.code !== 201) {
+          setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
+        } else {
+            Swal.fire({
+              title: '¡Listo!',
+              text: res.data,
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              window.location.href = '/';
+            });
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      setMessage('El formulario es inválido.')
     }
   };
 
@@ -104,7 +109,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
             {response && response?.error?.disponibilidad ? <p>{response.error.disponibilidad}</p> : ''}
           </div>
           <StyledInput required onChange={handleChange} name="domicilio" id="domicilio" label="Domicilio:" value={formData.domicilio} type="text"/>
-          <StyledInput required onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad ?? ""} placeholder="YYYY-MM-DD" type="text"/>
+          <StyledInput required onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad ?? ""} type="date"/>
           {response && response?.error?.inicioDisponibilidad ? <p>{response.error.inicioDisponibilidad}</p> : ''}
           {/* no se q onda la imagen*/}
           <label htmlFor="imagenURL" className="block text-sm font-medium text-gray-700">Imagen:</label>

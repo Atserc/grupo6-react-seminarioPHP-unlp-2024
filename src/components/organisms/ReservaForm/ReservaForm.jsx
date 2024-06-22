@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 import { sendData } from '../../../utils/requests'
+import { validarFormulario } from '../../../utils';
 
 export default function ReservaForm({ link, method, reserva = null, inquilinos, propiedades, titleMessage, buttonMessage}) {
   const [loading, setLoading] = useState();
@@ -23,25 +24,29 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name!='fecha_desde' ? Number(value): value,
+      [name]: name!=='fecha_desde' ? Number(value): value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Formulario enviado:', formData);
-    try {
-      setLoading(true);
-      setMessage(reserva ? 'Actualizando reserva...' : 'Confirmando reserva...');
-      const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
-      console.log(res, 'HOLA')
-      if (res.code != 200) {
-        setMessage(reserva ? 'No se pudo actualizar' : 'Verificá que el formulario sea correcto.');
-      } else {
-        setMessage(reserva ? 'Reserva actualizada' : 'Reserva confirmada');
+    if (validarFormulario(formData, 'reserva')) {
+      try {
+        setLoading(true);
+        setMessage(reserva ? 'Actualizando reserva...' : 'Confirmando reserva...');
+        const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
+        console.log(res, 'HOLA')
+        if (res.code !== 200) {
+          setMessage(reserva ? 'No se pudo actualizar' : 'Verificá que el formulario sea correcto.');
+        } else {
+          setMessage(reserva ? 'Reserva actualizada' : 'Reserva confirmada');
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      setMessage('El formulario es inválido.')
     }
   };
 
@@ -59,7 +64,7 @@ export default function ReservaForm({ link, method, reserva = null, inquilinos, 
             <div className="flex flex-col">
             {response && response?.error?.fechaVacia ? <p className="text-red-500">{response.error.fechaVacia}</p> : ''}
             {response && response?.error?.fecha ? <p className="text-red-500">{response.error.fecha}</p> : ''}
-           <StyledInput required onChange={handleChange} name="fecha_desde" id="fecha_desde" label="Fecha Desde" value={formData.fecha_desde} type="text"/>
+           <StyledInput required onChange={handleChange} name="fecha_desde" id="fecha_desde" label="Fecha Desde" value={formData.fecha_desde} type="date"/>
            
             </div>
             <div className="flex flex-col">

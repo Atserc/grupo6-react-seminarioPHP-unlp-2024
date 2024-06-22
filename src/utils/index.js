@@ -26,12 +26,19 @@ export function validateEmpty(input) {
 
 export function validate(input, tipo) {
   switch (tipo) {
-    case "fecha":
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+    case "date":
+      const dateParts = input.split('-');
+      console.log(dateParts)
+      // Reordenar fecha en formato dd/mm/yyyy
+      const formattedDate = `${dateParts[0]}-${dateParts[1]}-${dateParts[2]}`;
+      // console.log(formattedDate);
+      if (!/^\d{4}\d{2}-\d{2}$/.test(formattedDate)) {
+        // console.log('ES CORRECTO, TIENE EL Año EN LA PRIMERA POSICION')
+        return true;
+      } else {
+        //console.log('ES INCORRECTO')
         return false;
       }
-      return true;
-
     case "numero":
       if (!/^\d+$/.test(input)) {
         return false;

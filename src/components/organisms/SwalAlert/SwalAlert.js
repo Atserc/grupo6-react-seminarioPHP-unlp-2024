@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { deleteData, sendData} from '../../../utils/requests'
+import { deleteData } from '../../../utils/requests'
 
 export default async function AlertaConfirmacionBorrado({mensaje, type, id, setLoading, onDelete, message}) {
   const result = await Swal.fire({
@@ -29,8 +29,9 @@ export default async function AlertaConfirmacionBorrado({mensaje, type, id, setL
           text: payload.error ? payload.error : message,
           icon: payload.error ? "error" : 'success'
         });
-        if (onDelete) {
-          let actualizo = payload.error ? null : onDelete(id);
+        // si hay ondelete, actualizo el frontend filtrando.
+        if (onDelete && !payload.error) {
+          onDelete(id);
         }
       } catch (error) {
         Swal.fire({

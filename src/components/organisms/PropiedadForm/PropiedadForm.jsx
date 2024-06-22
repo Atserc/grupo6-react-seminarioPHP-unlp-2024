@@ -58,13 +58,13 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Formulario enviado:', formData);
+    //console.log('Formulario enviado:', formData);
     try {
       setLoading(true);
       setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
       const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
       console.log(res)
-      if (res.code != 200 && res.code != 201) {
+      if (res.code !== 200 && res.code !== 201) {
         setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
       } else {
           Swal.fire({
@@ -125,7 +125,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
             {/* <SubmitButton onClick={handleSubmit} text={buttonMessage}/> */}
             <SubmitButton text={buttonMessage}/>
           </div>
-          {<p className="text-red-500">{message}</p>}
+          {<p className={message === "Actualizando propiedad..." || 'Creando propiedad...' ? 'text-green-500' : 'text-red-500'}>{message}</p>}
           {/* {response?.error ? <p className="text-red-500">Verificá que el formulario sea válido</p>: ''} */}
         </form>
       </div>

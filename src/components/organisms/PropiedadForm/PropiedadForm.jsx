@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { validarFormulario } from '../../../utils';
 import { sendData } from '../../../utils/requests';
-import { validarFormulario } from '../../../utils';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
 export default function PropiedadForm({propiedad = null, localidades, tipoPropiedades, link, method, titleMessage, buttonMessage}) {

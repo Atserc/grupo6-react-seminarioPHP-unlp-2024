@@ -52,7 +52,7 @@ function ReservaPage() {
     getData({link:'reservas',setData: setReservas, setLoading: setLoadingReservas})
     getData({link:`propiedades`, setData: setPropiedades, setLoading: setLoadingPropiedades})
     getData({link:`inquilinos`, setData: setInquilinos, setLoading: setLoadingInquilinos})
-  }, [reservas]);
+  }, []);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
@@ -66,9 +66,9 @@ function ReservaPage() {
   };
 
 
-  useEffect((deleteId) => {
-    refreshData(deleteId);
-  }, []);
+  // useEffect((deleteId) => {
+    // refreshData(deleteId);
+  // }, []);
 
   return (
     <div>

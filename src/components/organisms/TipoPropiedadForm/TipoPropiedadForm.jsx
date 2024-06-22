@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyledInput, SubmitButton } from '../../../components/organisms'
 import { sendData } from '../../../utils/requests';
-
+import { validateEmpty } from '../../../utils';
 /* EL COMENTARIO DE LA RESPUESTA DE LA REQUEST ANDA, PERO NO SÉ COMO MOSTRAR BIEN LOS MENSAJES.
 SI RETORNA ERROR, SE ACCEDE CON DATA.ERROR, SI RETORNA SUCCESS, POR ALGUNA RAZON RETORNA DIRECTAMENTE,
 Y NO PUEDE RENDERIZAR UN OBJETO NATIVAMENTE. EL TERNARIO ESTÁ PORQUE ANTES LO TRAIA DE OTRA FORMA PERO QUE NO FUNCIONABA
@@ -22,8 +22,12 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
   
   const handleSubmit = async (event, method, link) => {
     event.preventDefault();
-    let res = await sendData({link, method, data: formData, setLoading: setLoading, setData})
-    console.log(data)
+    if(validateEmpty(formData.nombre)){
+      let res = await sendData({link, method, data: formData, setLoading: setLoading, setData})
+    } else {
+      console.log('formulario invalido');
+    }
+    // console.log(data)
   };
 
   return (

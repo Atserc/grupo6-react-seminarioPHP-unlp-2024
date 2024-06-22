@@ -15,7 +15,6 @@ export const triggerWarning = ({id, type, setLoading, onDelete, message}) => {
   }
 }
 
-
 export function validateEmpty(input) {
   if (input === "" || input === null || input === undefined) {
     return false;
@@ -52,5 +51,19 @@ export function validate(input, tipo) {
     
     default:
       return false;
+  }
+}
+
+export function validarFormulario(data, type){
+  console.log(data, type)
+  switch(type){
+    case 'propiedad':
+      return validateEmpty(data['domicilio']) && validateEmpty(data['localidad_id']) && validateEmpty(data['localidad_id']) 
+      && validate(data['cantidad_habitaciones'], 'numero') && validateEmpty(data['cantidad_banios']) && validateEmpty('cantidad_huespedes') 
+      && validate(data['cantidad_huespedes'], 'numero') && validateEmpty(data['fecha_inicio_disponibilidad']) && validateEmpty(data['cantidad_dias'])
+      && validate(data['cantidad_dias'], 'numero') && validateEmpty(data['valor_noche']) && validate(data['valor_noche'], 'numero') && validateEmpty(data['tipo_propiedad_id'])
+    case 'reserva':
+      return validateEmpty(data['propiedad_id']) && validateEmpty(data['inquilino_id']) && validateEmpty(data['fecha_desde']) && validateEmpty(data['cantidad_noches']) 
+      && validate(data['cantidad_noches'], 'numero')
   }
 }

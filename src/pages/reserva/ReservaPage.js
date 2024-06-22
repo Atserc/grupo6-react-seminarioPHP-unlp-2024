@@ -31,7 +31,7 @@ function showData({data, propiedades, inquilinos, setLoadingReservas, refreshDat
               <EditRedirectButton>
                 <Link to={`/reservas/editar/${reserva.id}`}> Editar </Link>
               </EditRedirectButton>
-              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoadingReservas} onDelete={refreshData}>Eliminar</DeleteButton>
+              <DeleteButton entityId={reserva.id} type="reservas" setLoading={setLoadingReservas} message="Reserva eliminada correctamente." onDelete={refreshData}>Eliminar</DeleteButton>
             </div>
           </div>
         ))}

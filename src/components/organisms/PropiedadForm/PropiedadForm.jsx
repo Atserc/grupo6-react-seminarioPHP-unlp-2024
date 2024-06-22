@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { sendData } from '../../../utils/requests';
-import { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
 import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
 export default function PropiedadForm({propiedad = null, localidades, tipoPropiedades, link, method, titleMessage, buttonMessage}) {
@@ -32,7 +30,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
     formData.disponible = propiedad? propiedad.disponible:0;
   }, [propiedad]);
 
-  const localidadesMap = localidades.reduce((acc, localidad) => {
+/*  const localidadesMap = localidades.reduce((acc, localidad) => {
     acc[localidad.id] = localidad.domicilio;
     return acc;
   }, {});
@@ -40,7 +38,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
     acc[tipoPropiedad.id] = `${tipoPropiedad.apellido} ${tipoPropiedad.nombre}`;
     return acc;
   }, {});
-
+*/
   const handleChange = (e) => {
     console.log(formData)
     const { name, value, checked } = e.target;
@@ -69,7 +67,6 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
       if (res.code != 200 && res.code != 201) {
         setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
       } else {
-        // setMessage(propiedad ? 'Propiedad actualizada' : 'Propiedad creada');
           Swal.fire({
             title: '¡Listo!',
             text: res.data,

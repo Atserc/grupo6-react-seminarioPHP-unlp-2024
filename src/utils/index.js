@@ -8,9 +8,9 @@ export const getNavLinkClass = (isActive) => {
 // warning on delete
 export const triggerWarning = ({id, type, setLoading, onDelete}) => {
   switch(type){
-    case 'propiedad': AlertaConfirmacionBorrado({mensaje: `Esta seguro de eliminar la propiedad ${id}`, type, id, setLoading, onDelete}); break;
-    case 'reserva':  AlertaConfirmacionBorrado({mensaje:`Esta seguro de eliminar la reserva ${id}`, type, id, setLoading, onDelete}); break;
-    case 'tipo propiedad': AlertaConfirmacionBorrado({mensaje: `Esta seguro de eliminar el tipo de propiedad ${id}`, type, id, setLoading, onDelete}); break;
+    case 'propiedades': AlertaConfirmacionBorrado({mensaje: `Esta seguro de eliminar la propiedad ${id}`, type, id, setLoading, onDelete}); break;
+    case 'reservas':  AlertaConfirmacionBorrado({mensaje:`Esta seguro de eliminar la reserva ${id}`, type, id, setLoading, onDelete}); break;
+    case 'tipos_propiedad': AlertaConfirmacionBorrado({mensaje: `Esta seguro de eliminar el tipo de propiedad ${id}`, type, id, setLoading, onDelete}); break;
     default: console.log("fallo de type en triggerWarning"); break;
   }
 }

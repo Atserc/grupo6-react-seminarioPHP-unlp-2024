@@ -68,7 +68,7 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
                   <EditRedirectButton>
                     <Link to={`/propiedades/editar/${propiedad.id}`}>Editar</Link>
                   </EditRedirectButton>
-                  <DeleteButton entityId={propiedad.id} type="propiedad" setLoading={setLoading} onDelete={refreshData}>
+                  <DeleteButton entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>
                     Eliminar
                   </DeleteButton>
                 </div>

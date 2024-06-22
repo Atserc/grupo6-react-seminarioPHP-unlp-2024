@@ -36,14 +36,14 @@ function applyFilter(setLoadingPropiedades, setPropiedades, filtros,message,setM
   getData({link:newLink ,setData: setPropiedades, setLoading: setLoadingPropiedades});
 }
 
-function showData(data, localidades, tipoPropiedades, setLoading, refreshData, setFiltros) {
+function showData(data, setLoading, refreshData) {
   console.log('RENDERICÉ');
   return (
     <div className="relative">
       <GridDiv>
         {Array.isArray(data) ? (data.map((propiedad) => {
-          const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
-          const localidad = localidades.find(loc => loc.id === propiedad.localidad_id);
+          // const tipoPropiedad = tipoPropiedades.find(tipo => tipo.id === propiedad.tipo_propiedad_id);
+          // const localidad = localidades.find(loc => loc.id === propiedad.localidad_id);
           return (
             <div key={propiedad.id} className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 p-6 transition-transform transform hover:scale-105">
               <h2 className="text-xl font-bold mb-2">{propiedad.domicilio}</h2>
@@ -54,7 +54,7 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
                 {/* <p>Cantidad de baños: {propiedad.cantidad_banios}</p> */}
                 {/* <p>Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p> */}
                 {/* <p>Disponible: {propiedad.disponible === 1 ? "Sí" : "No"}</p> */}
-                <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "Ya está ocupada."}</p>
+                <p>Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : `Ya está ocupada. (${propiedad.fecha_inicio_disponibilidad})`}</p>
                 {/* <p>Cantidad de días disponible: {propiedad.cantidad_dias}</p> */}
                 <p>Valor por noche: ${propiedad.valor_noche}</p>
                 {/* <p>Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
@@ -82,24 +82,24 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData, s
 
 function PropiedadPage() {
   const [propiedades, setPropiedades] = useState([])
-  const [tipoPropiedades, setTipoPropiedades] = useState([]);
+  // const [tipoPropiedades, setTipoPropiedades] = useState([]);
   const [localidades, setLocalidades] = useState([]);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [loadingPropiedades, setLoadingPropiedades] = useState(true);
   const [loadingLocalidades, setLoadingLocalidades] = useState(true);
-  const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
+  // const [loadingTipoPropiedades, setLoadingTipoPropiedades] = useState(true);
   const [filtros,setFiltros] = useState("");
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
 
   useEffect(() => {
       getData({link:'propiedades',setData: setPropiedades, setLoading: setLoadingPropiedades})
       getData({link:'localidades',setData: setLocalidades, setLoading: setLoadingLocalidades})
-      getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
+      // getData({link:'tipos_propiedad',setData: setTipoPropiedades, setLoading: setLoadingTipoPropiedades})
       }, []);
 
   useEffect(() => {
-    applyFilter(setLoadingPropiedades,setPropiedades,filtros,message,setMessage);
-  }, [filtros,message]);
+    applyFilter(setLoadingPropiedades,setPropiedades,filtros);
+  }, [filtros]);
 
   const refreshData = (deleteId) => {
     console.log(deleteId)
@@ -110,7 +110,7 @@ function PropiedadPage() {
     <div>
       <Actions link='propiedades' label='Agregar Propiedad' />
       <FilterForm localidades={localidades} setFiltros={setFiltros} />
-      {loadingPropiedades || loadingTipoPropiedades || loadingLocalidades || loadingDelete ? <LoadingSpinner /> : showData(propiedades, localidades, tipoPropiedades, setLoadingDelete, refreshData, setFiltros)}
+      {loadingPropiedades || loadingLocalidades || loadingDelete ? <LoadingSpinner /> : showData(propiedades, setLoadingDelete, refreshData)}
     </div>
   )
 }

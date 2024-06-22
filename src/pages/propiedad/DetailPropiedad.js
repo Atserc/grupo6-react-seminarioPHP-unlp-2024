@@ -26,7 +26,7 @@ function showData(propiedad, localidad, tipoPropiedad) {
           <p className="text-lg">Cantidad de huespedes: {propiedad.cantidad_huespedes}</p>
           <p className="text-lg">Cantidad de baños: {propiedad.cantidad_banios}</p>
           <p className="text-lg">Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
-          <p className="text-lg">Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "-"}</p>
+          <p className="text-lg">Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "Ya está ocupada."}</p>
           <p className="text-lg">Cantidad de días disponible: {propiedad.cantidad_dias}</p>
           <p className="text-lg">Localidad: {localidad ? localidad.nombre : "Desconocida"}</p>
           <p className="text-lg">Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>

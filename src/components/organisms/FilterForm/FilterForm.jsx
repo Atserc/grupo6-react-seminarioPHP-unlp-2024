@@ -18,7 +18,7 @@ export default function FilterForm({ localidades, setFiltros }) {
       disponible: '',
       localidad_id: ''
     });
-    setErrores({ cantidad_huespedes: '', fecha_inicio_disponibilidad: '' }); // Clear errors on reset
+    setErrores({ cantidad_huespedes: '', fecha_inicio_disponibilidad: '' }); // Elimina errores en reset
   };
   
   const handleChange = (e) => {
@@ -30,10 +30,10 @@ export default function FilterForm({ localidades, setFiltros }) {
         : value
     }));
 
-    // Clear specific error when the input is changed
+    // Elimina error cuando cambia un input
     setErrores(prevErrores => ({
       ...prevErrores,
-      [name]: '' // Clear the error for the specific input
+      [name]: ''
     }));
   };
 
@@ -61,7 +61,7 @@ export default function FilterForm({ localidades, setFiltros }) {
     }
     
     if (validateEmpty(formData.fecha_inicio_disponibilidad)) {
-      if (validate(formData.fecha_inicio_disponibilidad, 'fecha')) {
+      if (validate(formData.fecha_inicio_disponibilidad, 'date')) {
         cumpleB = true;
         setErrores(prevErrores => ({
           ...prevErrores,
@@ -122,8 +122,8 @@ export default function FilterForm({ localidades, setFiltros }) {
         id="fecha_inicio_disponibilidad" 
         label="Fecha de Inicio de Disponibilidad:" 
         value={formData.fecha_inicio_disponibilidad || ''} 
-        placeholder="YYYY-MM-DD" 
-        type="text"
+        // placeholder="YYYY-MM-DD" 
+        type="date"
         className="w-[125px] text-sm outline-none focus:border-0 rounded-md px-1"
       />
       <StyledSelect 

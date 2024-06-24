@@ -31,7 +31,6 @@ export default async function SwalAlert({type, id, setLoading, onDelete, message
           }
         });
         const payload = await deleteData({link: `${type}/${id}`, setLoading});
-        console.log(payload)
         Swal.fire({
           title: payload.error ? "Error" : "Borrado!",
           text: payload.error ? payload.error : message,

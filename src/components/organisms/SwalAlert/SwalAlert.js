@@ -7,6 +7,7 @@ export default async function SwalAlert({type, id, setLoading, onDelete, message
     case 'propiedades': mensaje = `Esta seguro de eliminar la propiedad ${id}`; break;
     case 'reservas': mensaje =`Esta seguro de eliminar la reserva ${id}`; break;
     case 'tipos_propiedad': mensaje = `Esta seguro de eliminar el tipo de propiedad ${id}`; break;
+    case 'localidades': mensaje = `Esta seguro de eliminar la localidad ${id}`; break;
     default: console.log("fallo de type en triggerWarning"); break;
   }
   const result = await Swal.fire({

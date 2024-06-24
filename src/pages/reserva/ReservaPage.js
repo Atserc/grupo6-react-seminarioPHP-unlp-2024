@@ -4,9 +4,7 @@ import { GridDiv, EditRedirectButton, DeleteButton, LoadingSpinner, Actions} fro
 import { Link } from 'react-router-dom';
 
 function showData({data, propiedades, inquilinos, setLoadingReservas, refreshData}) {
-  //console.log(data, propiedades, inquilinos, setLoading);
 
-  // No sé que hacen pero funcionan (ofrecen un array donde muestran nombre en vez de id con la prop id de la reserva.)
   const propiedadMap = propiedades.reduce((acc, propiedad) => {
     acc[propiedad.id] = propiedad.domicilio;
     return acc;
@@ -55,20 +53,9 @@ function ReservaPage() {
   }, []);
 
   const refreshData = (deleteId) => {
-    console.log(deleteId)
-    // setLoadingReservas(true);
-    // setLoadingPropiedades(true);
-    // setLoadingInquilinos(true);
-    // getData({ link: 'reservas', setData: setReservas, setLoading: setLoadingReservas });
-    // getData({ link: 'propiedades', setData: setPropiedades, setLoading: setLoadingPropiedades });
-    // getData({ link: 'inquilinos', setData: setInquilinos, setLoading: setLoadingInquilinos });
     setReservas(reservas => reservas.filter(reserva => reserva.id !== deleteId));
   };
 
-  /*useEffect((deleteId) => {
-    refreshData(deleteId);
-  }, []);*/
-  
   return (
     <div>
         <Actions link="reservas" label="Agregar Reserva" />
@@ -78,8 +65,3 @@ function ReservaPage() {
 }
 
 export default ReservaPage;
-
-// listado de reservas.
-// boton para crear nueva reserva (renderiza una nueva pagina).
-// boton de editar reserva (renderiza una nueva pagina).
-// boton de eliminar reserva (se pide confirmacion).

@@ -10,39 +10,36 @@ export default function StyledSelect({
   return <>
   {(entityType === 'inquilinos') ? (
     <>
-    <label htmlFor="select" className={labelClass}>{label}</label>
+    <label htmlFor={id} className={labelClass}>{label}</label>
     <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
       <option value="" disabled>Seleccione un elemento</option>
       {options.map((el)=>(  
         <option key={el.id} value={el.id}>{el.nombre} {el.apellido}</option>
-        // puede ser inquilino, localidad_id, tiposPropiedad, propiedad
       ))}
     </select></>
   ): entityType==='propiedades' ? ( 
     <>
-    <label htmlFor="select" className={labelClass}>{label}</label>
+    <label htmlFor={id} className={labelClass}>{label}</label>
     <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
       <option value="" disabled>Seleccione un elemento</option>
       {options.map((el)=>(
         <option key={el.id} value={el.id}>{el.domicilio}</option>
-        // puede ser inquilino, localidad_id, tiposPropiedad, propiedad
       ))}
     </select>
     </>
   ) : (entityType==='tipo_propiedad' || entityType==='localidades') ? (
     <>
-    <label htmlFor="select" className={labelClass}>{label}</label>
+    <label htmlFor={id} className={labelClass}>{label}</label>
     <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
       <option value="" disabled>Seleccione un elemento</option>
       {options.map((el)=>(
         <option key={el.id} value={el.id}>{el.nombre}</option>
-        // puede ser inquilino, localidad_id, tiposPropiedad, propiedad
       ))}
     </select>
     </>
   ) : (entityType==='disponibilidad') ? (
     <>
-    <label htmlFor="select" className={labelClass}>{label}</label>
+    <label htmlFor={id} className={labelClass}>{label}</label>
     <select {...props} onChange={onChange} value={selectedIdOption} className={className} id={id} name={name}>
       {options.map((el, i) => (
        <option key={i} value={el}>{el}</option>

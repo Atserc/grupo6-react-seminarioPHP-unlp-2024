@@ -4,10 +4,6 @@ import { sendData } from '../../../utils/requests';
 import { validateEmpty } from '../../../utils';
 import Swal from 'sweetalert2';
 
-/* EL COMENTARIO DE LA RESPUESTA DE LA REQUEST ANDA, PERO NO SÉ COMO MOSTRAR BIEN LOS MENSAJES.
-SI RETORNA ERROR, SE ACCEDE CON DATA.ERROR, SI RETORNA SUCCESS, POR ALGUNA RAZON RETORNA DIRECTAMENTE,
-Y NO PUEDE RENDERIZAR UN OBJETO NATIVAMENTE. EL TERNARIO ESTÁ PORQUE ANTES LO TRAIA DE OTRA FORMA PERO QUE NO FUNCIONABA
-VERIFICAR COMO RETORNAR CORRECTAMNETE Y VISUALIZAR BIEN LA INFO. */
 export default function TipoPropiedadForm({link, method, tipoPropiedad = null, titleMessage, buttonMessage}){
   const [inputValue, setInputValue] = useState(tipoPropiedad? tipoPropiedad.nombre : '');
   const [loading, setLoading] = useState(false);

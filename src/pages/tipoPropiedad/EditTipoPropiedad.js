@@ -1,6 +1,3 @@
-
-// // formulario precargado y mostrar mensaje del backend.
-// // boton de eliminar
 import { LoadingSpinner, TipoPropiedadForm } from '../../components/organisms'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';

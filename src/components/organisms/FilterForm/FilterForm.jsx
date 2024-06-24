@@ -48,7 +48,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         cumpleA = true;
         setErrores(prevErrores => ({
           ...prevErrores,
-          cantidad_huespedes: '' // Clear error if valid
+          cantidad_huespedes: ''
         }));
       } else {
         setErrores(prevErrores => ({
@@ -65,7 +65,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         cumpleB = true;
         setErrores(prevErrores => ({
           ...prevErrores,
-          fecha_inicio_disponibilidad: '' // Clear error if valid
+          fecha_inicio_disponibilidad: ''
         }));
       } else {
         setErrores(prevErrores => ({
@@ -121,8 +121,7 @@ export default function FilterForm({ localidades, setFiltros }) {
         name="fecha_inicio_disponibilidad" 
         id="fecha_inicio_disponibilidad" 
         label="Fecha de Inicio de Disponibilidad:" 
-        value={formData.fecha_inicio_disponibilidad || ''} 
-        // placeholder="YYYY-MM-DD" 
+        value={formData.fecha_inicio_disponibilidad || ''}
         type="date"
         className="w-[125px] text-sm outline-none focus:border-0 rounded-md px-1"
       />

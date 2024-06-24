@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { validarFormulario } from '../../../utils';
 import { sendData } from '../../../utils/requests';
-import { StyledInput, StyledSelect, SubmitButton } from '../../organisms'
+import {StyledInput, StyledSelect, SubmitButton } from '../../organisms'
 
 export default function PropiedadForm({propiedad = null, localidades, tipoPropiedades, link, method, titleMessage, buttonMessage}) {
   const [response, setResponse] = useState()
@@ -27,8 +27,8 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
     if (propiedad) {
       setFormData(propiedad);
     }
-    formData.cochera = propiedad? propiedad.cochera:0;
-    formData.disponible = propiedad? propiedad.disponible:0;
+    //formData.cochera = propiedad? propiedad.cochera:0;
+    //formData.disponible = propiedad? propiedad.disponible:0;
   }, [propiedad]);
 
 /*  const localidadesMap = localidades.reduce((acc, localidad) => {
@@ -68,7 +68,9 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
         console.log(res)
         if (res.code !== 200 && res.code !== 201) {
           setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
+          setLoading(false);
         } else {
+            setLoading(false);
             Swal.fire({
               title: '¡Listo!',
               text: res.data,
@@ -110,10 +112,26 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
           <StyledInput required onChange={handleChange} name="domicilio" id="domicilio" label="Domicilio:" value={formData.domicilio} type="text"/>
           <StyledInput required onChange={handleChange} name="fecha_inicio_disponibilidad" id="fecha_inicio_disponibilidad" label="Fecha de Inicio de Disponibilidad:" value={formData.fecha_inicio_disponibilidad ?? ""} type="date"/>
           {response && response?.error?.inicioDisponibilidad ? <p>{response.error.inicioDisponibilidad}</p> : ''}
-          {/* no se q onda la imagen*/}
-          <label htmlFor="imagenURL" className="block text-sm font-medium text-gray-700">Imagen:</label>
-          <input onChange={handleChange} type="text" id="imagen" name="imagen" value={formData.imagen ?? ""} className="block w-full px-3 py-2 border border-gray-300 rounded-md" />
-          <StyledInput onChange={handleChange} name="tipo_imagen" id="tipo_imagen" label="Tipo de Imagen" value={formData.tipo_imagen ?? ""} type="text"/>
+
+          <input
+            id= 'imagen'
+            type="file"
+            onChange={(e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const imageDataUrl = reader.result;
+                    setFormData({
+                      ...formData,
+                      imagen: imageDataUrl,
+                     });
+                };
+                reader.readAsDataURL(file);
+            }}
+          />
+
+          {/*<StyledInput onChange={handleChange} name="imagen" id="imagen" label="Imagen: " value={formData.imagen ?? ""} type="text"/>
+          <StyledInput onChange={handleChange} name="tipo_imagen" id="tipo_imagen" label="Tipo de Imagen: " value={formData.tipo_imagen ?? ""} type="text"/>*/}
           
           {/*ACOMODAR SELECTS*/}
           {/* <StyledInput name="localidad_id" id="localidad_id" label="ID de Localidad:" value={propiedad.localidad_id} type="number"/> */}
@@ -129,7 +147,11 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
             {/* <SubmitButton onClick={handleSubmit} text={buttonMessage}/> */}
             <SubmitButton text={buttonMessage}/>
           </div>
-          {<p className={message === "Actualizando propiedad..." || 'Creando propiedad...' ? 'text-green-500' : 'text-red-500'}>{message}</p>}
+          <div>
+            {loading ? 
+                <p className={message === "Actualizando propiedad..." || 'Creando propiedad...' ? 'text-green-500' : 'text-red-500'}>{message}</p>
+            : <></>}
+          </div>
           {/* {response?.error ? <p className="text-red-500">Verificá que el formulario sea válido</p>: ''} */}
         </form>
       </div>

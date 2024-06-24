@@ -9,7 +9,7 @@ function showData(propiedad, localidad, tipoPropiedad) {
       <div className="bg-slate-200 flex justify-center items-center p-10 rounded-xl">
         <div className="w-1/2 flex flex-col justify-center items-center p-5">
           <div>
-          <img src={propiedad.imagen + propiedad.tipo_imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-6" />
+          <img src={propiedad.imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-6" />
           </div>
           <div>
           <h2 className="text-4xl font-bold mb-4">{propiedad.domicilio}</h2>

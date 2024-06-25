@@ -46,11 +46,20 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validarFormulario(formData, 'propiedad',message, setMessage)) {
+
+    const dataToSubmit = { ...formData };
+    // Elimina claves con valores vacíos, para que si no se setea ni baños ni habitaciones pueda submitear igual.
+    // evita enviar un string vacio y evita que la api retorne el error.
+    Object.keys(dataToSubmit).forEach(key => {
+      if (dataToSubmit[key] === '') {
+        delete dataToSubmit[key];
+      }
+    });
+    if (validarFormulario(dataToSubmit, 'propiedad', message, setMessage)) {
       try {
         setLoading(true);
         setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
-        const res =  await sendData({link, method, data: formData, setLoading: setLoading, setData: setResponse})
+        const res =  await sendData({link, method, data: dataToSubmit, setLoading: setLoading, setData: setResponse})
         if (res.code !== 200 && res.code !== 201) {
           setMessage(propiedad ? 'No se pudo actualizar' : 'Verificá que el formulario sea válido');
           setLoading(false);
@@ -108,15 +117,13 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
                     const imageDataUrl = reader.result;
                     setFormData({
                       ...formData,
-                      imagen: imageDataUrl,
+                      imagen: imageDataUrl.split(',')[1],
+                      tipo_imagen: imageDataUrl.split('/')[1].split(';')[0]
                      });
                 };
                 reader.readAsDataURL(file);
             }}
           />
-
-          {/*<StyledInput onChange={handleChange} name="imagen" id="imagen" label="Imagen: " value={formData.imagen ?? ""} type="text"/>
-          <StyledInput onChange={handleChange} name="tipo_imagen" id="tipo_imagen" label="Tipo de Imagen: " value={formData.tipo_imagen ?? ""} type="text"/>*/}
           
           <StyledSelect required onChange={handleChange} selectedIdOption={formData.localidad_id} options={localidades} entityType="localidades" name="localidad_id" label="Seleccionar localidad" id="localidad_id" placeholder="Seleccione una localidad" />
           {response && response?.error?.localidadId ? <p>{response.error.localidadId}</p> : ''}

@@ -9,7 +9,7 @@ function showData(propiedad, localidad, tipoPropiedad) {
       <div className="bg-slate-200 flex justify-center items-center p-10 rounded-xl">
         <div className="w-1/2 flex flex-col justify-center items-center p-5">
           <div>
-          <img src={propiedad.imagen} alt="sin foto" className="w-full max-h-48 object-cover mb-6" />
+            <img src={`data:image/${propiedad.tipo_imagen};base64,${propiedad.imagen}`} alt="Sin foto." className="w-full max-h-48 object-cover mb-6" />
           </div>
           <div>
           <h2 className="text-4xl font-bold mb-4">{propiedad.domicilio}</h2>
@@ -22,9 +22,9 @@ function showData(propiedad, localidad, tipoPropiedad) {
               {propiedad.disponible === 1 ? "Sí" : "No"}
             </span>
           </p>
-          <p className="text-lg">Cantidad de habitaciones: {propiedad.cantidad_habitaciones}</p>
-          <p className="text-lg">Cantidad de huespedes: {propiedad.cantidad_huespedes}</p>
-          <p className="text-lg">Cantidad de baños: {propiedad.cantidad_banios}</p>
+          <p className="text-lg">Cantidad de habitaciones: {propiedad.cantidad_habitaciones? propiedad.cantidad_habitaciones : 'No especifica cantidad de habitaciones.'}</p>
+          <p className="text-lg">Cantidad de huespedes: {propiedad.cantidad_huespedes }</p>
+          <p className="text-lg">Cantidad de baños: {propiedad.cantidad_banios? propiedad.cantidad_banios:'No especifica cantidad de baños.'}</p>
           <p className="text-lg">Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
           <p className="text-lg">Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "Ya está ocupada."}</p>
           <p className="text-lg">Cantidad de días disponible: {propiedad.cantidad_dias}</p>

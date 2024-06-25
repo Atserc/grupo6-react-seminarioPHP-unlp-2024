@@ -17,7 +17,8 @@ export function validate(input, tipo) {
       const dateParts = input.split('-');
       // Reordenar fecha en formato dd/mm/yyyy
       const formattedDate = `${dateParts[0]}-${dateParts[1]}-${dateParts[2]}`;
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(formattedDate)) {
+      // console.log(input,'INPUT- TIPO', tipo, '-FORMATED DATE', formattedDate);
+      if (!/^\d{2}-\d{2}-\d{4}$/.test(formattedDate)) {
         return true;
       } else {
         return false;
@@ -41,10 +42,11 @@ export function validate(input, tipo) {
 export function validarFormulario(data, type, messages, setMessages){
   switch(type){
     case 'propiedad':
-      console.log(data);
+      // console.log(data);
       let newMessages = [];
+      // se setean los mensajes.
       for (const [key, value] of Object.entries(data)) {
-        console.log(key);
+        // console.log(key);
         if (key !== 'imagen' || key !== 'tipo_imagen') {
           if (!validateEmpty(value)) {
             newMessages.push(`${key} no puede estar vacío.`);
@@ -61,9 +63,10 @@ export function validarFormulario(data, type, messages, setMessages){
           }
         }
       }
-      console.log(newMessages);
-      setMessages(newMessages);
-      console.log(messages);
+      // console.log(newMessages);
+      // setMessages(newMessages);
+      // console.log(messages);
+      // se evalua la validez del formulario
       return validateEmpty(data['domicilio'])
       && validateEmpty('cantidad_huespedes') && validate(data['cantidad_huespedes'], 'numero') 
       && validateEmpty(data['fecha_inicio_disponibilidad']) && validate(data['fecha_inicio_disponibilidad'], 'date')

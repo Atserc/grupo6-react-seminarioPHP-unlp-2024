@@ -42,11 +42,9 @@ export function validate(input, tipo) {
 export function validarFormulario(data, type, messages, setMessages){
   switch(type){
     case 'propiedad':
-      // console.log(data);
       let newMessages = [];
       // se setean los mensajes.
       for (const [key, value] of Object.entries(data)) {
-        // console.log(key);
         if (key !== 'imagen' || key !== 'tipo_imagen') {
           if (!validateEmpty(value)) {
             newMessages.push(`${key} no puede estar vacío.`);
@@ -54,7 +52,7 @@ export function validarFormulario(data, type, messages, setMessages){
         }
         if (key === 'cantidad_habitaciones' || key === 'cantidad_banios' || key === 'cantidad_huespedes' || key === 'cantidad_dias' || key === 'valor_noche') {
           if (!validate(value, 'numero')) {
-            newMessages.push(`${key} debe ser un número.`);
+            newMessages.push(`${key} debe ser un número positivo.`);
           }
         }
         if (key === 'fecha_inicio_disponibilidad') {
@@ -63,9 +61,8 @@ export function validarFormulario(data, type, messages, setMessages){
           }
         }
       }
-      // console.log(newMessages);
-      // setMessages(newMessages);
-      // console.log(messages);
+      setMessages(newMessages);
+    
       // se evalua la validez del formulario
       return validateEmpty(data['domicilio'])
       && validateEmpty('cantidad_huespedes') && validate(data['cantidad_huespedes'], 'numero') 

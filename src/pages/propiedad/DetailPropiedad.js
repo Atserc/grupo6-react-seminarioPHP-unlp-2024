@@ -22,9 +22,9 @@ function showData(propiedad, localidad, tipoPropiedad) {
               {propiedad.disponible === 1 ? "Sí" : "No"}
             </span>
           </p>
-          <p className="text-lg">Cantidad de habitaciones: {propiedad.cantidad_habitaciones? propiedad.cantidad_habitaciones : 'No especifica cantidad de habitaciones.'}</p>
+          <p className="text-lg">Cantidad de habitaciones: {propiedad.cantidad_habitaciones || propiedad.cantidad_habitaciones===0 ? propiedad.cantidad_habitaciones : 'No especifica cantidad de habitaciones.'}</p>
           <p className="text-lg">Cantidad de huespedes: {propiedad.cantidad_huespedes }</p>
-          <p className="text-lg">Cantidad de baños: {propiedad.cantidad_banios? propiedad.cantidad_banios:'No especifica cantidad de baños.'}</p>
+          <p className="text-lg">Cantidad de baños: {propiedad.cantidad_banios || propiedad.cantidad_banios===0 ? propiedad.cantidad_banios:'No especifica cantidad de baños.'}</p>
           <p className="text-lg">Con cochera: {propiedad.cochera === 1 ? "Sí" : "No"}</p>
           <p className="text-lg">Desde: {propiedad.disponible === 1 ? propiedad.fecha_inicio_disponibilidad : "Ya está ocupada."}</p>
           <p className="text-lg">Cantidad de días disponible: {propiedad.cantidad_dias}</p>

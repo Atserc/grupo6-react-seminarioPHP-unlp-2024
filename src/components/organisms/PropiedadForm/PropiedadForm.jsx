@@ -79,7 +79,6 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
       }
     } else {
       setLoading(false);
-      setMessage('El formulario es inválido.')
     }
   };
 
@@ -90,12 +89,12 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
           <div className="grid grid-cols-2 gap-4">
             {response && response?.error?.baños ? <p>{response.error.baños}</p> : ''}
-            <StyledInput onChange={handleChange} name="cantidad_banios" id="cantidad_banios" label="Cantidad de Baños:" value={formData.cantidad_banios ?? ""} type="number"/>
-            <StyledInput required onChange={handleChange} name="cantidad_dias" id="cantidad_dias" label="Cantidad de Días:" value={formData.cantidad_dias ?? ""} type="number"/>
+            <StyledInput onChange={handleChange} name="cantidad_banios" id="cantidad_banios" label="Cantidad de Baños:" value={formData.cantidad_banios ?? ""} type="number" min={0}/>
+            <StyledInput required onChange={handleChange} name="cantidad_dias" id="cantidad_dias" label="Cantidad de Días:" value={formData.cantidad_dias ?? ""} type="number" min={0}/>
             {response && response?.error?.dias ? <p>{response.error.dias}</p> : ''}
-            <StyledInput onChange={handleChange} name="cantidad_habitaciones" id="cantidad_habitaciones" label="Cantidad de Habitaciones:" value={formData.cantidad_habitaciones ?? ""} type="number"/>
+            <StyledInput onChange={handleChange} name="cantidad_habitaciones" id="cantidad_habitaciones" label="Cantidad de Habitaciones:" value={formData.cantidad_habitaciones ?? ""} type="number" min={0}/>
             {response && response?.error?.habitaciones ? <p>{response.error.habitaciones}</p> : ''}
-            <StyledInput required onChange={handleChange} name="cantidad_huespedes" id="cantidad_huespedes" label="Cantidad de Huéspedes:" value={formData.cantidad_huespedes ?? ""} type="number"/>
+            <StyledInput required onChange={handleChange} name="cantidad_huespedes" id="cantidad_huespedes" label="Cantidad de Huéspedes:" value={formData.cantidad_huespedes ?? ""} type="number" min={0}/>
             <label htmlFor="cochera" className="block text-sm font-medium text-gray-700">Cochera:</label>
             <input onChange={handleChange} type="checkbox" id="cochera" name="cochera" checked={formData.cochera === 1} className="mt-2 h-5 w-5" />
             {response && response?.error?.cochera ? <p>{response.error.cochera}</p> : ''}

@@ -66,10 +66,7 @@ export default function TipoPropiedadForm({link, method, tipoPropiedad = null, t
           <h2 className="text-2xl mb-4 text-center">{titleMessage}</h2>
            {data && <p className={data.error ? 'text-red-500':'text-green-500'}>{data.error ? data.error : data.data}</p>} 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="textInput">
-              Nombre
-            </label>
-            <StyledInput name="nombre" type="text" id="textInput" placeholder="Nombre de tipo propiedad" value={inputValue} onChange={handleInputChange} required minLength={1}/>
+            <StyledInput name="nombre" type="text" id="textInput" label="Nombre" placeholder="Nombre de tipo propiedad" value={inputValue} onChange={handleInputChange} required minLength={1}/>
           </div>
           <div className="flex justify-center">
             <SubmitButton text={buttonMessage} />

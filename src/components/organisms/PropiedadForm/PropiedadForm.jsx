@@ -69,6 +69,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
         console.log(error)
       }
     } else {
+      setLoading(false);
       setMessage('El formulario es inválido.')
     }
   };
@@ -130,7 +131,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
           <div>
             {loading ? 
                 <p className={message === "Actualizando propiedad..." || 'Creando propiedad...' ? 'text-green-500' : 'text-red-500'}>{message}</p>
-            : <></>}
+            : <>{message}</>}
           </div>
         </form>
       </div>

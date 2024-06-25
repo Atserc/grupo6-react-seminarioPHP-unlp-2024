@@ -34,8 +34,7 @@ export default async function SwalAlert({type, id, setLoading, onDelete, message
         Swal.fire({
           title: payload.error ? "Error" : "Borrado!",
           text: payload.error ? payload.error : message,
-          icon: payload.error ? "error" : 'success',
-          timer: 2500
+          icon: payload.error ? "error" : 'success'
         });
         // si hay ondelete, actualizo el frontend filtrando.
         if (onDelete && !payload.error) {

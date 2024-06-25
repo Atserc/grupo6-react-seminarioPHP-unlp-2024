@@ -54,13 +54,15 @@ function showData(data, localidades, tipoPropiedades, setLoading, refreshData) {
               <p>Tipo propiedad: {tipoPropiedad ? tipoPropiedad.nombre : "Desconocido"}</p>
             </div>
             <div className="flex items-center justify-between">
-              <Link to={`/propiedades/detalles/${propiedad.id}`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+              <Link to={`/propiedades/detalles/${propiedad.id}`} className="bg-cyan-900 text-white py-2 px-4 rounded hover:bg-cyan-400 hover:text-black transition duration-300">
                 Detalles
               </Link>
               <div className="flex gap-2">
-                <EditRedirectButton>
-                  <Link to={`/propiedades/editar/${propiedad.id}`}>Editar</Link>
-                </EditRedirectButton>
+                <Link to={`/propiedades/editar/${propiedad.id}`}>
+                  <EditRedirectButton>
+                  Editar
+                  </EditRedirectButton>
+                </Link>
                 <DeleteButton message="Propiedad eliminada correctamente." entityId={propiedad.id} type="propiedades" setLoading={setLoading} onDelete={refreshData}>
                   Eliminar
                 </DeleteButton>

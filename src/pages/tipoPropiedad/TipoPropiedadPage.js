@@ -13,9 +13,11 @@ function showData(data, setLoading, refreshData) {
               <p>Tipo Propiedad: {tipoPropiedad.nombre}</p>
               <div className="flex gap-1">
                 <DeleteButton onDelete={refreshData} entityId={tipoPropiedad.id} type="tipos_propiedad" message="Tipo de Propiedad eliminada correctamente." setLoading={setLoading}>Eliminar</DeleteButton>
-                <EditRedirectButton>
-                  <Link to={`/tipo-propiedades/editar/${tipoPropiedad.id}`}> Editar </Link>
-                </EditRedirectButton>
+                <Link to={`/tipo-propiedades/editar/${tipoPropiedad.id}`}>
+                  <EditRedirectButton>
+                    Editar
+                  </EditRedirectButton>
+                </Link>
               </div>
             </div>
           </div>

@@ -79,7 +79,6 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
       }
     } else {
       setLoading(false);
-      //setMessage('El formulario es inválido.')
     }
   };
 

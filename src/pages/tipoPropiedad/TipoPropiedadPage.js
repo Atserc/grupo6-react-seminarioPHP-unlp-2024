@@ -34,7 +34,6 @@ function TipoPropiedadPage() {
   useEffect(() => {
     getData({ link: 'tipos_propiedad', setData: setTipoPropiedades, setLoading: setLoading });
   }, []);
-  // AGREGAR REFRESHDATA. ONDELETE
 
   const refreshData = (deleteId) => {
     setTipoPropiedades(tipoPropiedades => tipoPropiedades.filter(tipoPropiedad => tipoPropiedad.id !== deleteId));

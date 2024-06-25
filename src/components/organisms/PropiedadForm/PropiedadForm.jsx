@@ -9,7 +9,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState()
   const [formData, setFormData] = useState({
-    cantidad_banios: 0,
+    cantidad_banios: "",
     cantidad_huespedes: "",
     cantidad_habitaciones: "",
     cantidad_dias: "",
@@ -46,7 +46,7 @@ export default function PropiedadForm({propiedad = null, localidades, tipoPropie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validarFormulario(formData, 'propiedad')) {
+    if (validarFormulario(formData, 'propiedad',message, setMessage)) {
       try {
         setLoading(true);
         setMessage(propiedad ? 'Actualizando propiedad...' : 'Creando propiedad...');
